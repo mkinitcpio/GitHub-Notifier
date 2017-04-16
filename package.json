@@ -4,7 +4,9 @@
   "description": "A simple application based on electron and angular frameworks for quicky notify you about new commits.",
   "main": "src/app.main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "npm run webpack-watch && electron .",
+    "webpack-watch": "webpack -w &",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
