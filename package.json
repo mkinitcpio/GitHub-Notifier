@@ -1,12 +1,13 @@
 {
   "name": "github-notifier",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple application based on electron and angular frameworks for quicky notify you about new commits.",
   "main": "src/app.main.js",
   "scripts": {
     "start": "npm run webpack-watch && electron .",
     "webpack-watch": "webpack -w &",
-    "build": "webpack"
+    "build": "webpack",
+    "electron": "electron ."
   },
   "repository": {
     "type": "git",
