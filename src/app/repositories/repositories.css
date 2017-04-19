@@ -1,0 +1,27 @@
+.repositories-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 4px 2px;
+}
+
+.repositories-container_repository {
+    padding: 16px 8px;
+    margin-bottom: 1px;
+    background-color: #eeeef8;
+}
+
+.repository_name{
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.repository_description{
+    margin-bottom: 8px;
+}
+
+.repository_owner{
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 12px;
+    text-align: right;
+}

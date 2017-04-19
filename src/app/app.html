@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div class="app">
+    <div class="app_title-container">
+        <div class="title-container_title">
+            GitHub-Notifier
+        </div>
+        <div class="title-container_menu">
+            <div class="menu_item material-icons" (click)="addRepo()">add</div>
+            <div class="menu_item material-icons">search</div>
+            <div class="menu_item material-icons" (click)="logout()">exit_to_app</div>
+        </div>
+    </div>
+    <div class="app_body">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>

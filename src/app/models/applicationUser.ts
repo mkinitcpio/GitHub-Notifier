@@ -27,11 +27,11 @@ export class ApplicationUser {
 
         let isRepositoryExist = !!this._repositories.find(repo => repo.fullname === newRepository.fullname);
 
-        if (isRepositoryExist) {
-            throw new Error("Repository is already exist in subscribed repositories");
-        } else {
+        // if (isRepositoryExist) {
+        //     throw new Error("Repository is already exist in subscribed repositories");
+        // } else {
             this._repositories.push(newRepository);
-        }
+        // }
     }
 
     public setUsername(name: string): void {

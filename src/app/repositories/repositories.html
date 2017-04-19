@@ -1,3 +1,13 @@
-<div>Subscribed repos</div>
-<br>
-<div *ngFor="let repo of repositories">{{repo.fullname}}</div>
+<div class="repositories-container">
+    <div class="repositories-container_repository" *ngFor="let repository of repositories">
+        <div class="repository_name">
+            {{repository.fullname}}
+        </div>
+        <div class="repository_description">
+            {{repository.description}}
+        </div>
+        <div class="repository_owner">
+            Owner: mkinitcpio
+        </div>
+    </div>
+</div>

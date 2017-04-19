@@ -1,22 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { GitGubNotifier } from '../models/github-notifier';
 import { Repository } from '../models/repository';
 
 @Component({
     selector: 'repositories',
-    templateUrl: './repositories.html'
+    templateUrl: './repositories.html',
+    styles: [
+        require("./repositories.css").toString()
+    ]
 })
-export class RepositoriesComponent implements OnInit {
+export class RepositoriesComponent implements OnInit, OnDestroy {
 
     public repositories: Repository[];
-    
-    constructor(private _gitHubNotifier: GitGubNotifier) { }
+    public appUserSubject: any;
 
-    ngOnInit() {
-        this._gitHubNotifier.getApplicationUserSubject().subscribe(currentUser => {
+    constructor(private _gitHubNotifier: GitGubNotifier) {
+        this.appUserSubject = this._gitHubNotifier.getApplicationUserSubject().subscribe((currentUser: any) => {
             this.repositories = currentUser.repositories;
-        });
+        });;
     }
 
+    ngOnInit() {
+
+    }
+
+    ngOnDestroy() {
+        this.appUserSubject.unsubscribe();
+    }
 }

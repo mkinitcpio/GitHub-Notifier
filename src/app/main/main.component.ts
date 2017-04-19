@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { Repository } from '../models/repository';
-import { GitHubUser } from '../models/github-user';
 
 @Component({
     selector: 'main',
@@ -12,9 +10,6 @@ import { GitHubUser } from '../models/github-user';
 })
 export class MainComponent {
 
-    public repo: Repository;
+    constructor() { }
 
-    constructor() {
-        
-    }
 }
