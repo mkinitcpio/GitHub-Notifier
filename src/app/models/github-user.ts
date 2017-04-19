@@ -1,6 +1,4 @@
-import { IUserData } from './IUserData';
-
-export class User {
+export class GitHubUser {
 
     private _name: string;
     private _avatarUrl: string;
@@ -23,18 +21,18 @@ export class User {
         return this._accountUrl;
     }
 
-    public static parse(userData: IUserData): User {
-        let user = new User();
+    public static parse(userData: any): GitHubUser {
+        let user = new GitHubUser();
 
-        user._name = userData.name;
-        user._avatarUrl = userData.avatarUrl;
-        user._email = userData.email;
-        user._accountUrl = userData.accountUrl;
+        // user._name = userData.name;
+        // user._avatarUrl = userData.avatarUrl;
+        // user._email = userData.email;
+        // user._accountUrl = userData.accountUrl;
         
         return user;
     }
 
-    public static stringify(user: User): IUserData {
+    public static stringify(user: GitHubUser): any {
         return {
             name: user.name,
             avatarUrl: user.avatarUrl,

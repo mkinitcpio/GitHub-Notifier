@@ -1,3 +1,15 @@
-div{
-    color: green;
+.main {
+    height: 100vh;
+    display: flex;
+    align-items: stretch;    
+}
+
+.main_repositories {
+    background: #f5f5f5;
+    flex-grow: 1;
+}
+
+.main_commits {
+    background: #f9f9f7;
+    flex-grow: 2;
 }

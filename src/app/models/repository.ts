@@ -1,16 +1,27 @@
 import { Commit } from './commit';
-import { User } from './user';
-
-import { IUserData } from './IUserData';
-import { ICommitData } from './ICommitData';
-import { IRepositoryData } from './IRepositoryData';
+import { GitHubUser } from './github-user';
 
 export class Repository {
 
     private _fullname: string;
     private _description: string;
-    private _owner: User;
+    private _owner: GitHubUser;
     private _commits: Array<Commit>;
+    private _lastCommitKey: string;
+
+    public get isExistUnwatchedCommit(): boolean {
+
+        let isConsistUnwatchedCommit: boolean = false;
+
+        for (let commit of this._commits) {
+            if (!commit.isWatched) {
+                isConsistUnwatchedCommit = true;
+                break;
+            }
+        }
+
+        return isConsistUnwatchedCommit;
+    }
 
     public get fullname(): string {
         return this._fullname;
@@ -20,29 +31,40 @@ export class Repository {
         return this._description;
     }
 
-    public get owner(): User{
-        return this._owner;
-    }
-
-    public get commits(): Array<Commit>{
+    public get commits(): Array<Commit> {
         return this._commits;
     }
 
-    public static parse(data: IRepositoryData): Repository {
+    public get owner(): GitHubUser {
+        return this._owner;
+    }
+
+    public get lastCommitKey(): string {
+        return this._lastCommitKey;
+    }
+
+    public set lastCommitKey(key: string) {
+        this._lastCommitKey = key;
+    }
+
+    public static parse(json: any): Repository {
+
         let repo = new Repository();
-        repo._owner = User.parse(data.owner);
-        repo._fullname = data.fullname;
-        repo._description = data.description;
-        repo._commits = data.commits.map(c => Commit.parse(c));
+
+        repo._owner = GitHubUser.parse(json.owner);
+        repo._fullname = json.fullname;
+        repo._description = json.description;
+        // repo._commits = json.commits.map((c: any) => Commit.parse(c));
         return repo;
     }
 
-    public static stringify(repo: Repository): IRepositoryData {
+    public static stringify(repo: Repository): any {
         return {
             fullname: repo.fullname,
             description: repo.description,
-            owner: User.stringify(repo.owner),
-            commits: repo._commits.map(c => Commit.stringify(c))
+            owner: GitHubUser.stringify(repo.owner),
+            commits: repo.commits.map(commit => Commit.stringify(commit)),
+            lastCommitKey: repo.lastCommitKey
         }
     }
 }
