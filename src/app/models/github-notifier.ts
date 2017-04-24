@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Commit } from './commit';
-import { GitHubUser } from './github-user';
 import { Repository } from './repository';
 import { ApplicationUser } from './applicationUser';
 
@@ -13,31 +12,34 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class GitGubNotifier {
 
-    private _user: GitHubUser;
+    private _applicationUser: ApplicationUser;
     private _repositories: Array<Repository>;
-    private _applicationUserRepositorySubject = new BehaviorSubject<ApplicationUser>(this._appUser);
+    private _applicationUserRepositorySubject = new BehaviorSubject<ApplicationUser>(this._applicationUser);
 
     constructor(
         private _gitGubApi: GitHubApi,
-        private _appStorage: AppStorage,
-        private _appUser: ApplicationUser
+        private _appStorage: AppStorage
     ) { }
 
-    public seacrhApplicationUser(userName: string): void {
-        this._appUser = this._appStorage.getApplicationUser(userName);
+    public logIn(userName: string): void {
+        this._applicationUser = this._appStorage.getApplicationUser(userName);
     }
 
     addRepository(newRepository: Repository): void {
-        this._appUser.addRepository(newRepository);
-        this._applicationUserRepositorySubject.next(this._appUser);
+        this._applicationUser.addRepository(newRepository);
+        this._applicationUserRepositorySubject.next(this._applicationUser);
     }
 
     removeRepository(repoFullName: string): void {
-        this._appUser.removeRepository(repoFullName);
-        this._applicationUserRepositorySubject.next(this._appUser);
+        this._applicationUser.removeRepository(repoFullName);
+        this._applicationUserRepositorySubject.next(this._applicationUser);
     }
 
     public getApplicationUserSubject(): Observable<ApplicationUser> {
         return this._applicationUserRepositorySubject;
+    }
+
+    public get isUserLoggedIn(): boolean{
+        return !!this._applicationUser;
     }
 }
