@@ -9,16 +9,32 @@ export class GitHubUser {
         return this._name;
     }
 
+    public set name(name: string){
+        this._name = name;
+    }
+
     public get avatarUrl(): string {
         return this._avatarUrl;
+    }
+
+    public set avatarUrl(url: string){
+        this._avatarUrl = url;
     }
 
     public get email(): string {
         return this._email;
     }
 
+    public set email(email: string){
+        this._email = email;
+    }
+
     public get accountUrl(): string {
         return this._accountUrl;
+    }
+
+    public set accountUrl(accountUrl: string){
+        this._accountUrl = accountUrl;
     }
 
     public static parse(userData: any): GitHubUser {

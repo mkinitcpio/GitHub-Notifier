@@ -8,26 +8,35 @@ export class AppStorage {
 
     private KEY: string = "users";
 
-    constructor(private appUser: ApplicationUser) { }
+    constructor() { }
 
     public getApplicationUser(name: string): ApplicationUser {
 
+        let appUser: ApplicationUser;
+        let appUserData;
         let appUsersData = JSON.parse(localStorage.getItem(this.KEY));
+
         if (appUsersData) {
-            let user = appUsersData.find((r: any) => r.name === name);
-            if (user) {
-                let u = ApplicationUser.parse(user);
-                this.appUser.name = u.name;
-                this.appUser.repositories = u.repositories;
-            } else {
-                this.appUser.name = name;
-                this.appUser.repositories = [];
-            }
+
+            appUserData = appUsersData.find((user: any) => user.name === name);
+            appUser = appUserData ? ApplicationUser.parse(appUserData) : new ApplicationUser(name);
+
+        } else {
+            appUser = new ApplicationUser(name);
         }
-        else {
-            this.appUser.name = name;
-            this.appUser.repositories = [];
-        }
-        return this.appUser;
+        return appUser;
     }
 }
+
+
+let a = [{
+    "name": "mkinitcpio",
+    "repositories": [
+        { "name": "mkinitcpio/GitHub", "description": "Test", "lastCommit": 12 },
+        { "name": "mkinitcpio/GitHub-Notifier", "description": "Test1", "lastCommit": 123 },
+        { "name": "mkinitcpio/Notifier", "description": "Test124", "lastCommit": 12 }]
+},
+{
+    "name": "test", "repositories": [
+        { "name": "GitHub", "description": "Test1111", "lastCommit": 12 }, { "name": "GitHub-Notifier", "lastCommit": 123 }, { "name": "Notifier", "lastCommit": 12 }]
+}]

@@ -28,7 +28,7 @@ export class ApplicationUser {
 
     public addRepository(newRepository: Repository): void {
 
-        let isRepositoryExist = !!this._repositories.find(repo => repo.fullname === newRepository.fullname);
+        let isRepositoryExist = !!this._repositories.find(repo => repo.name === newRepository.name);
 
         if (isRepositoryExist) {
             throw new Error("Repository is already exist in subscribed repositories");
@@ -39,7 +39,7 @@ export class ApplicationUser {
 
 
     public removeRepository(fullname: string): void {
-        this._repositories = this._repositories.filter(repo => repo.fullname !== fullname);
+        this._repositories = this._repositories.filter(repo => repo.name !== fullname);
     }
 
     public static parse(json: any): ApplicationUser {

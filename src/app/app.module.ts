@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpModule } from "@angular/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { Route, RouterModule } from '@angular/router';
 
@@ -12,26 +13,24 @@ import { GitHubApi } from './github-api';
 import { GitGubNotifier } from './models/github-notifier';
 import { AppStorage } from './app-storage';
 import { ApplicationUser } from './models/applicationUser';
-import { RepositoriesComponent } from './repositories/repositories.component';
-import { CommitsComponent } from './commits/commits.component';
+import { SearchComponent } from "./search/search.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         MainComponent,
         LoginComponent,
-        RepositoriesComponent,
-        CommitsComponent
+        SearchComponent
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(AppRoutes)
+        RouterModule.forRoot(AppRoutes),
+        HttpModule
     ],
     providers: [
         GitHubApi,
         GitGubNotifier,
-        AppStorage,
-        ApplicationUser
+        AppStorage
     ],
     bootstrap: [AppComponent]
 })

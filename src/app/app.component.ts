@@ -13,16 +13,22 @@ import { GitGubNotifier } from './models/github-notifier';
 })
 
 export class AppComponent implements OnInit {
+
     constructor(private _router: Router, private _gitHubNotifier: GitGubNotifier) { }
 
     ngOnInit() { }
 
 
+    public get isLogIn(): boolean {
+        return this._gitHubNotifier.isUserLoggedIn;
+    }
+
     public logout(): void {
+        this._gitHubNotifier.logOut();
         this._router.navigate(['']);
     }
 
-    public addRepo(): void {
-        this._gitHubNotifier.addRepository(new Repository());
+    public searchRepo(): void {
+        this._router.navigate(['search']);
     }
 }

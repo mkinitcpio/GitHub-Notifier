@@ -3,9 +3,8 @@
         <div class="title-container_title">
             GitHub-Notifier
         </div>
-        <div class="title-container_menu">
-            <div class="menu_item material-icons" (click)="addRepo()">add</div>
-            <div class="menu_item material-icons">search</div>
+        <div *ngIf="isLogIn" class="title-container_menu">
+            <div class="menu_item material-icons" (click)="searchRepo()">search</div>
             <div class="menu_item material-icons" (click)="logout()">exit_to_app</div>
         </div>
     </div>

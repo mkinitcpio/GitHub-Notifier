@@ -24,20 +24,40 @@ export class Commit {
         return this._key;
     }
 
+    public set key(key: string){
+        this._key = key;
+    }
+
     public get message(): string {
         return this._message;
     }
 
+    public set message(message: string){
+        this._message = message;
+    }
+
     public get url(): string {
         return this._url;
+    }
+    
+    public set url(url: string){
+        this._url = url;
     }
 
     public get author(): GitHubUser {
         return this._author;
     }
 
+    public set author(user: GitHubUser){
+        this._author = user;
+    }
+
     public get date(): Date {
         return this._date;
+    }
+
+    public set date(date: Date){
+        this._date = date;
     }
 
     public static stringify(commit: Commit): any {
@@ -46,7 +66,7 @@ export class Commit {
             message: commit.message,
             url: commit.url,
             author: GitHubUser.stringify(commit.author),
-            date: commit.date,
+            date: commit.date.toISOString(),
             isWatched: commit.isWatched
         }
     }
@@ -57,7 +77,7 @@ export class Commit {
         commit._key = data.key;
         commit._message = data.message;
         commit._url = data.url;
-        commit._date = commit._date;
+        commit._date = new Date(data.date);
         commit._author = GitHubUser.parse(data.author);
         commit._isWatched = data.isWatched;
 

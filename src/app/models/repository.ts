@@ -3,6 +3,7 @@ import { GitHubUser } from './github-user';
 
 export class Repository {
 
+    private _name: string;
     private _fullname: string;
     private _description: string;
     private _owner: GitHubUser;
@@ -23,12 +24,28 @@ export class Repository {
         return isConsistUnwatchedCommit;
     }
 
-    public get fullname(): string {
+    public get name(): string {
+        return this._name;
+    }
+
+    public set name(name: string){
+        this._name = name;
+    }
+
+    public get fullname(): string{
         return this._fullname;
+    }
+
+    public set fullname(fullname: string){
+        this._fullname = fullname;
     }
 
     public get description(): string {
         return this._description;
+    }
+
+    public set description(descr: string){
+        this._description = descr; 
     }
 
     public get commits(): Array<Commit> {
@@ -53,13 +70,15 @@ export class Repository {
 
         repo._owner = GitHubUser.parse(json.owner);
         repo._fullname = json.fullname;
+        repo._name = json.name;
         repo._description = json.description;
-        // repo._commits = json.commits.map((c: any) => Commit.parse(c));
+        repo._commits = json.commits.map((c: any) => Commit.parse(c));
         return repo;
     }
 
     public static stringify(repo: Repository): any {
         return {
+            name: repo.name,
             fullname: repo.fullname,
             description: repo.description,
             owner: GitHubUser.stringify(repo.owner),

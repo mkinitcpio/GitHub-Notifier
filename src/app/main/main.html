@@ -1,6 +1,24 @@
 <div class="main">
     <div class="main_body">
-        <repositories class="body_repositories-container"></repositories>
-        <commits class="body_commits-container"></commits>
+        <div class="body_repositories-container">
+            <div class="repositories-container">
+                <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="showRepositoryCommits(repository)">
+                    <div class="repository_name">
+                        {{repository.name}}
+                    </div>
+                    <div class="repository_description">
+                        {{repository.description}}
+                    </div>
+                    <div class="repository_owner">
+                        Owner: mkinitcpio
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="selectedRepositoryCommits" class="body_commits-container">
+            <div *ngFor="let commit of selectedRepositoryCommits">
+                {{commit.message}}
+            </div>
+        </div>
     </div>
 </div>

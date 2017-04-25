@@ -1,0 +1,5 @@
+<input #inputValue type="text"> <button (click)="search(inputValue.value)">search</button>
+
+<div *ngFor="let repo of searchedRepos">
+    {{repo.fullname}}
+</div>

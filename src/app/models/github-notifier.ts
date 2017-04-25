@@ -14,32 +14,49 @@ export class GitGubNotifier {
 
     private _applicationUser: ApplicationUser;
     private _repositories: Array<Repository>;
-    private _applicationUserRepositorySubject = new BehaviorSubject<ApplicationUser>(this._applicationUser);
+    private _applicationUserRepositorySubject: BehaviorSubject<ApplicationUser>;
+    private _isUserLoggedIn: boolean = false;
 
     constructor(
         private _gitGubApi: GitHubApi,
-        private _appStorage: AppStorage
+        private _appStorage: AppStorage,
+        private _gitHubApi: GitHubApi
     ) { }
 
     public logIn(userName: string): void {
         this._applicationUser = this._appStorage.getApplicationUser(userName);
+        this._applicationUserRepositorySubject = new BehaviorSubject<ApplicationUser>(this._applicationUser);
+        this._isUserLoggedIn = true;
     }
 
-    addRepository(newRepository: Repository): void {
+    public logOut(): void {
+        delete this._applicationUser;
+        this._isUserLoggedIn = false;
+    }
+
+    public addRepository(newRepository: Repository): void {
         this._applicationUser.addRepository(newRepository);
         this._applicationUserRepositorySubject.next(this._applicationUser);
     }
 
-    removeRepository(repoFullName: string): void {
+    public removeRepository(repoFullName: string): void {
         this._applicationUser.removeRepository(repoFullName);
         this._applicationUserRepositorySubject.next(this._applicationUser);
+    }
+
+    public searchRepositories(regex: string): Promise<Repository[]> {
+        return this._gitGubApi.searchRepos(regex);
+    }
+
+    public getRepositoryCommits(repositoryFullname: string): Promise<Commit[]>{
+        return this._gitGubApi.getRepositoryCommits(repositoryFullname);
     }
 
     public getApplicationUserSubject(): Observable<ApplicationUser> {
         return this._applicationUserRepositorySubject;
     }
 
-    public get isUserLoggedIn(): boolean{
-        return !!this._applicationUser;
+    public get isUserLoggedIn(): boolean {
+        return this._isUserLoggedIn;
     }
 }
