@@ -1,5 +1,12 @@
 <div class="login">
-    <div>Login Page!</div>
-    <input #valueInput type="text">
-    <button (click)="logIn(valueInput.value)">Login</button>
+    <div class="login-container">
+        <img class="login-container_image" src="../../images/pusheencat.png">
+        <div class="login-container_greeting">
+            Welcome to GitHub-Notifier!
+        </div>
+        <div class="login-container_input-container">
+            <input placeholder="Type user name" class="input-container_input" #valueInput type="text">
+            <div class="input-container_apply-button" (click)="logIn(valueInput.value)">Login</div>
+        </div>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 import { GitGubNotifier } from '../models/github-notifier';
 import { Repository } from '../models/repository';
@@ -21,9 +21,11 @@ export class MainComponent {
     public appUserSubject: any;
 
     constructor(private _gitHubNotifier: GitGubNotifier, private _router: Router) {
-        this.appUserSubject = this._gitHubNotifier.getApplicationUserSubject().subscribe((currentUser: ApplicationUser) => {
-            this.repositories = currentUser.repositories;
-        });
+        if (!this.appUserSubject) {
+            this.appUserSubject = this._gitHubNotifier.getApplicationUserSubject().subscribe((currentUser: ApplicationUser) => {
+                this.repositories = currentUser.repositories;
+            });
+        }
     }
 
 
@@ -32,5 +34,7 @@ export class MainComponent {
             this.selectedRepositoryCommits = commits;
         });
     }
+
+
 
 }

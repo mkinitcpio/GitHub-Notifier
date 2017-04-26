@@ -3,10 +3,12 @@
         <div class="title-container_title">
             GitHub-Notifier
         </div>
-        <div *ngIf="isLogIn" class="title-container_menu">
-            <div *ngIf="isSearchComponentEnable" class="menu_item material-icons" (click)="navigateToMainComponent()">arrow_back</div>
-            <div *ngIf="!isSearchComponentEnable" class="menu_item material-icons" (click)="searchRepo()">search</div>
+        <div *ngIf="isLogIn && !isSearchComponentEnable" class="title-container_menu">
+            <div class="menu_item material-icons" (click)="searchRepo()">search</div>
             <div class="menu_item material-icons" (click)="logout()">exit_to_app</div>
+        </div>
+        <div *ngIf="isSearchComponentEnable" class="title-container_menu">
+            <div class="menu_item material-icons" (click)="navigateToMainComponent()">arrow_back</div>
         </div>
     </div>
     <div class="app_body">

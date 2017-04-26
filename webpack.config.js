@@ -35,6 +35,11 @@ module.exports = {
                 use: [{
                     loader: 'html-loader'
                 }]
+            },
+            {
+                test: /\.png$/,
+                exclude: /node_modules/,
+                loader: 'file-loader?name=images/[name].[ext]'
             }
         ]
     },
@@ -43,5 +48,4 @@ module.exports = {
             name: ['vendor']
         })
     ]
-
 }

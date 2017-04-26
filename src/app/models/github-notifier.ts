@@ -16,12 +16,13 @@ export class GitGubNotifier {
     private _repositories: Array<Repository>;
     private _applicationUserRepositorySubject: BehaviorSubject<ApplicationUser>;
     private _isUserLoggedIn: boolean = false;
-
+    
     constructor(
         private _gitGubApi: GitHubApi,
         private _appStorage: AppStorage,
         private _gitHubApi: GitHubApi
-    ) { }
+    ) {
+     }
 
     public logIn(userName: string): void {
         this._applicationUser = this._appStorage.getApplicationUser(userName);

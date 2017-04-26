@@ -49,9 +49,7 @@
     cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 700px;
-    border-radius: 4px;
     padding: 18px 16px;
-    margin: 0 8px;
 }
 
 .info-container_name {
@@ -62,8 +60,8 @@
     margin-bottom: 16px;
 }
 
-.repository-container_full-info-container{
-    margin-bottom: 16px; 
+.repository-container_full-info-container {
+    margin-bottom: 16px;
 }
 
 .full-info-container_description {
@@ -76,7 +74,7 @@
 
 .full-info-container_owner {
     color: #546E7A;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .info-container_owner {
@@ -120,8 +118,6 @@
     color: #004D40;
 }
 
-.searched-repositories-container_separator {
-    height: 1px;
-    background-color: #dedede;
-    margin: 0 auto;
+.searched-repositories-container_repository-container:nth-child(even) {
+    background: rgb(249, 249, 249);
 }
