@@ -1,5 +1,45 @@
-<input #inputValue type="text"> <button (click)="search(inputValue.value)">search</button>
+<div class="search-container">
+    <div class="search-container_input-container">
+        <input #inputValue class="search-container_input" type="text" placeholder="Type repo name">
+        <span class="search-container_search-button material-icons" (click)="search(inputValue.value)">search</span>
+    </div>
 
-<div *ngFor="let repo of searchedRepos">
-    {{repo.fullname}}
+    <div class="searched-repositories-container">
+        <ng-container *ngFor="let repo of searchedRepos">
+            <div class="searched-repositories-container_repository-container" (click)="showRepositoryDetails(repo.fullname)">
+                <div class="repository-container_info-container">
+                    <div class="info-container_name">{{repo.name}}</div>
+                    <div *ngIf="!isSelectedRepository(repo.fullname)" class="info-container_owner">owner: {{repo.owner.name}}</div>
+                </div>
+                <div *ngIf="isSelectedRepository(repo.fullname);then fullInfo;else simpleInfo"></div>
+                <ng-template #fullInfo>
+                    <div class="repository-container_full-info-container">
+                        <div class="full-info-container_description">
+                            Description: {{repo.description}}
+                        </div>
+                        <div class="full-info-container_owner">
+                            Owner: {{repo.owner.name}}
+                        </div>
+                    </div>
+                    <div class="repository-container_button-container">
+                        <div *ngIf="!isRepoExistInSubscribedRepos(repo.fullname)" (click)="addRepository(repo)" class="button-container_button">
+                            Add
+                        </div>
+                        <div *ngIf="isRepoExistInSubscribedRepos(repo.fullname)" (click)="removeRepository(repo)" class="button-container_button button-container_button--red">
+                            Remove
+                        </div>
+                        <div class="button-container_button">
+                            Open
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #simpleInfo>
+
+                </ng-template>
+            </div>
+            <div class="searched-repositories-container_separator">
+            </div>
+        </ng-container>
+
+    </div>
 </div>

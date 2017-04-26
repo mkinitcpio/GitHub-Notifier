@@ -156,7 +156,7 @@ body {
     width: 100%;
     position: fixed;
     top: 0;
-    background-color: #2178DB;
+    background-color: #009688;
     display: flex;
     justify-content: space-between;
     z-index: 1;
@@ -164,7 +164,7 @@ body {
 }
 
 .app_body{
-    margin-top: 50px;
+    margin-top: 55px;
 }
 
 .title-container_title {

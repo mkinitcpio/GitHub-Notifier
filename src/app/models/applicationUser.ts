@@ -39,7 +39,7 @@ export class ApplicationUser {
 
 
     public removeRepository(fullname: string): void {
-        this._repositories = this._repositories.filter(repo => repo.name !== fullname);
+        this._repositories = this._repositories.filter(repo => repo.fullname !== fullname);
     }
 
     public static parse(json: any): ApplicationUser {

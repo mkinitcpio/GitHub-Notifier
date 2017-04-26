@@ -26,6 +26,16 @@ export class AppStorage {
         }
         return appUser;
     }
+
+    public saveApplicationUserChanges(user: ApplicationUser): void {
+
+        let appUsersData = JSON.parse(localStorage.getItem(this.KEY));
+        let userData = ApplicationUser.stringify(user);
+
+        appUsersData = appUsersData.filter((uData: any) => uData.name !== user.name);
+        appUsersData.push(userData);
+        localStorage.setItem(this.KEY, JSON.stringify(appUsersData));
+    }
 }
 
 

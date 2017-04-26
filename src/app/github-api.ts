@@ -21,6 +21,7 @@ export class GitHubApi {
     public searchRepos(reg: string): Promise<Repository[]> {
         return this._http.get(`${this.GITHUB_URL}/search/repositories?q=${reg}`).map((responce: any) => {
             let body: any = JSON.parse(responce._body);
+            console.log(body.items);
             return body.items;
         }).map(reposData => {
             let searchedRepos: Repository[] = [];
@@ -29,6 +30,15 @@ export class GitHubApi {
                 searchedRepo.name = data.name;
                 searchedRepo.fullname = data.full_name;
                 searchedRepo.description = data.description;
+                let owner = new GitHubUser();
+                owner.name = data.owner.login;
+                owner.email = "";
+                owner.accountUrl = data.owner.html_url;
+                owner.avatarUrl = data.owner.avatar_url;
+                searchedRepo.owner = owner;
+                searchedRepo.lastCommitKey= "";
+                searchedRepo.commits = [];
+                
                 searchedRepos.push(searchedRepo);
             });
 
@@ -37,7 +47,6 @@ export class GitHubApi {
     }
 
     public getRepositoryCommits(repositoryFullname: string): Promise<any> {
-        repositoryFullname = "mkinitcpio/ChroperaDial"
         return this._http.get(`${this.GITHUB_URL}/repos/${repositoryFullname}/commits?client_id=${this.ID}&client_secret=${this.SECRET}`).map((response: any) => {
             let commitsData = JSON.parse(response._body);
             return commitsData;

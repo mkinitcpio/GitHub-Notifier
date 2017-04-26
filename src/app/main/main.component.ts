@@ -28,10 +28,10 @@ export class MainComponent {
 
 
     public showRepositoryCommits(repository: Repository): void {
+        console.log(repository.fullname);
         this._gitHubNotifier.getRepositoryCommits(repository.fullname).then(commits => {
             this.selectedRepositoryCommits = commits;
         });
     }
 
-    
 }

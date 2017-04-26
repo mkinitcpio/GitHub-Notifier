@@ -52,8 +52,16 @@ export class Repository {
         return this._commits;
     }
 
+    public set commits(commits: Commit[]){
+        this._commits = commits;
+    }
+
     public get owner(): GitHubUser {
         return this._owner;
+    }
+
+    public set owner(owner: GitHubUser){
+        this._owner = owner;
     }
 
     public get lastCommitKey(): string {

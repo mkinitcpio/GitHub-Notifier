@@ -36,11 +36,13 @@ export class GitGubNotifier {
 
     public addRepository(newRepository: Repository): void {
         this._applicationUser.addRepository(newRepository);
-        this._applicationUserRepositorySubject.next(this._applicationUser);
+        this._appStorage.saveApplicationUserChanges(this._applicationUser);
+        // this._applicationUserRepositorySubject.next(this._applicationUser);
     }
 
     public removeRepository(repoFullName: string): void {
         this._applicationUser.removeRepository(repoFullName);
+        this._appStorage.saveApplicationUserChanges(this._applicationUser);
         this._applicationUserRepositorySubject.next(this._applicationUser);
     }
 
@@ -48,7 +50,7 @@ export class GitGubNotifier {
         return this._gitGubApi.searchRepos(regex);
     }
 
-    public getRepositoryCommits(repositoryFullname: string): Promise<Commit[]>{
+    public getRepositoryCommits(repositoryFullname: string): Promise<Commit[]> {
         return this._gitGubApi.getRepositoryCommits(repositoryFullname);
     }
 
@@ -58,5 +60,9 @@ export class GitGubNotifier {
 
     public get isUserLoggedIn(): boolean {
         return this._isUserLoggedIn;
+    }
+
+    public isRepoExistInSubscribedRepos(repositoryFullname:string): boolean{
+        return !!this._applicationUser.repositories.find(repo => repo.fullname === repositoryFullname);
     }
 }
