@@ -1,10 +1,10 @@
 .search-container {
-    margin: 24px 0;
+    margin: 48px 0;
 }
 
 .search-container_input-container {
-    max-width: 640px;    
-    margin: 24px auto;
+    max-width: 640px;
+    margin: 48px auto;
     display: flex;
 }
 
@@ -20,7 +20,8 @@
 }
 
 .search-container_input:focus {
-    border: 1px solid #66AFE9;
+    border: 1px solid #00897B;
+    outline: none;
 }
 
 .search-container_search-button {
@@ -41,10 +42,11 @@
 .searched-repositories-container {
     margin: 0 auto;
     max-width: 640px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16), 0 2px 3px rgba(0, 0, 0, 0.23);
 }
 
 .searched-repositories-container_repository-container {
+    cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 700px;
     border-radius: 4px;
@@ -53,10 +55,15 @@
 }
 
 .info-container_name {
+    text-overflow: ellipsis;
     color: #455A64;
     font-weight: bold;
     font-size: 24px;
     margin-bottom: 16px;
+}
+
+.repository-container_full-info-container{
+    margin-bottom: 16px; 
 }
 
 .full-info-container_description {
@@ -67,8 +74,9 @@
     margin-bottom: 12px;
 }
 
-.full-info-container_owner{
+.full-info-container_owner {
     color: #546E7A;
+    margin-bottom: 4px;
 }
 
 .info-container_owner {
@@ -86,7 +94,7 @@
     justify-content: flex-end;
 }
 
-.repository-container_button-container :last-child{
+.repository-container_button-container :last-child {
     margin-right: 0px;
 }
 
@@ -98,11 +106,11 @@
     color: #00897B;
     width: fit-content;
     margin: 4px 8px;
-    padding: 4px 8px;
+    padding: 8px 16px;
     transition: color 0.3s ease-in-out;
 }
 
-.button-container_button--red{
+.button-container_button--red {
     border-color: red;
     color: red;
 }
@@ -114,7 +122,6 @@
 
 .searched-repositories-container_separator {
     height: 1px;
-    width: 98%;
-    background-color: #9fabb7;
+    background-color: #dedede;
     margin: 0 auto;
 }

@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
 
     private _searchedRepos: Repository[] = [];
     private _selectedRepositoryFullname: string;
+    
     constructor(private _gitHubNotifier: GitGubNotifier) { }
 
     ngOnInit() { }
@@ -26,7 +27,6 @@ export class SearchComponent implements OnInit {
     }
 
     public addRepository(r: Repository): void {
-        console.log(r);
         this._gitHubNotifier.addRepository(r);
         alert(`Repository ${r.name} added.`);
     }
@@ -55,66 +55,3 @@ export class SearchComponent implements OnInit {
         this._gitHubNotifier.removeRepository(repository.fullname);
     }
 }
-
-
-let a = [
-    {
-        "name": "mkinitcpio",
-        "repositories": [{
-            "name": "GitHub-Notifier",
-            "fullname": "mkinitcpio/GitHub-Notifier",
-            "description": "Test",
-            "lastCommit": 12,
-            "commits": [
-                {
-                    key: "dsfgrdegre",
-                    message: "test",
-                    url: "testUrl",
-                    author: {
-                        name: "mkinitcpio",
-                        avatarUrl: "url",
-                        accountUrl: "accUrl",
-                        email: "wot220697"
-                    },
-                    date: "Tue Apr 25 2017",
-                    isWatched: "true"
-                }, {
-                    key: "dsfgrdegre",
-                    message: "test",
-                    url: "testUrl",
-                    author: {
-                        name: "mkinitcpio",
-                        avatarUrl: "url",
-                        accountUrl: "accUrl",
-                        email: "wot220697"
-                    },
-                    date: "Tue Apr 25 2017",
-                    isWatched: "true"
-                }, {
-                    key: "dsfgrdegre",
-                    message: "test",
-                    url: "testUrl",
-                    author: {
-                        name: "mkinitcpio",
-                        avatarUrl: "url",
-                        accountUrl: "accUrl",
-                        email: "wot220697"
-                    },
-                    date: "Tue Apr 25 2017",
-                    isWatched: "true"
-                }, {
-                    key: "dsfgrdegre",
-                    message: "test",
-                    url: "testUrl",
-                    author: {
-                        name: "mkinitcpio",
-                        avatarUrl: "url",
-                        accountUrl: "accUrl",
-                        email: "wot220697"
-                    },
-                    date: "Tue Apr 25 2017",
-                    isWatched: "true"
-                }
-            ]
-        }]
-    }]

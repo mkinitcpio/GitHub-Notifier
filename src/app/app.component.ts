@@ -8,11 +8,14 @@ import { GitGubNotifier } from './models/github-notifier';
     selector: 'app',
     templateUrl: 'app.html',
     styles: [
-        require('./app.css').toString()
+        require('./app.css').toString(),
+        require('./css-reset.css').toString()
     ]
 })
 
 export class AppComponent implements OnInit {
+
+    private _isSearchComponentEnable: boolean = false;
 
     constructor(private _router: Router, private _gitHubNotifier: GitGubNotifier) { }
 
@@ -28,8 +31,18 @@ export class AppComponent implements OnInit {
         this._router.navigate(['']);
     }
 
+    public get isSearchComponentEnable(): boolean {
+        return this._isSearchComponentEnable;
+    }
+
     public searchRepo(): void {
         this._router.navigate(['search']);
+        this._isSearchComponentEnable = true;
+    }
+
+    public navigateToMainComponent(): void {
+        this._isSearchComponentEnable = false;
+        this._router.navigate(['main']);
     }
 
     addRepo(): void {
