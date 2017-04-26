@@ -1,4 +1,6 @@
-.search-container {}
+.search-container {
+    margin: 24px 0;
+}
 
 .search-container_input-container {
     max-width: 640px;    
@@ -7,7 +9,6 @@
 }
 
 .search-container_input {
-    margin-left: 8px;
     width: 100%;
     padding: .375rem .75rem;
     margin-right: 0px;
@@ -31,7 +32,6 @@
     line-height: 1.6em;
     background-color: #009688;
     border-radius: 0 4px 4px 0;
-    margin-right: 8px;
 }
 
 .search-container_search-button:hover {
@@ -84,6 +84,10 @@
 .repository-container_button-container {
     display: flex;
     justify-content: flex-end;
+}
+
+.repository-container_button-container :last-child{
+    margin-right: 0px;
 }
 
 .button-container_button {
