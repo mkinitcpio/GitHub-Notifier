@@ -22,8 +22,9 @@ export class GitHubApi {
             return body.items;
         }).map((reposData) => {
             return reposData.map((data: any) => {
-
-                let owner = new GitHubUser(data.owner.name, data.owner.avatar_url, "", data.owner.html_url);
+                console.log(data);
+                let owner = new GitHubUser(data.owner.login, data.owner.avatar_url, "", data.owner.html_url);
+                console.log(owner);
                 let searchedRepo: Repository = new Repository(data.full_name, data.description, owner);
 
                 return searchedRepo;
@@ -44,5 +45,4 @@ export class GitHubApi {
             });
         }).toPromise();
     }
-
 }

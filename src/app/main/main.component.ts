@@ -14,7 +14,6 @@ import { Commit } from "../models/commit";
 })
 export class MainComponent {
 
-
     public repositories: Repository[];
     public selectedRepositoryCommits: Commit[];
     public appUserSubject: any;
@@ -27,13 +26,9 @@ export class MainComponent {
         }
     }
 
-
     public showRepositoryCommits(repository: Repository): void {
         this._gitHubNotifier.getRepositoryCommits(repository.fullname).then(commits => {
             this.selectedRepositoryCommits = commits;
         });
     }
-
-
-
 }

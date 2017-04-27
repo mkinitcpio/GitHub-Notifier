@@ -19,7 +19,7 @@ export class Repository {
         }
         this._fullname = fullname;
 
-        this._name = fullname.split('/')[0];
+        this._name = fullname.split('/')[1];
 
         if (description === null && description === undefined) {
             throw new Error("description has null or undefined value.");
