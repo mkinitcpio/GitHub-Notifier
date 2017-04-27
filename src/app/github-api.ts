@@ -23,12 +23,7 @@ export class GitHubApi {
         }).map((reposData) => {
             return reposData.map((data: any) => {
 
-                let owner = new GitHubUser();
-                owner.name = data.owner.login;
-                owner.email = "";
-                owner.accountUrl = data.owner.html_url;
-                owner.avatarUrl = data.owner.avatar_url;
-
+                let owner = new GitHubUser(data.owner.name, data.owner.avatar_url, "", data.owner.html_url);
                 let searchedRepo: Repository = new Repository(data.full_name, data.description, owner);
 
                 return searchedRepo;
@@ -47,11 +42,8 @@ export class GitHubApi {
                 commit.message = data.commit.message;
                 commit.date = new Date(data.commit.author.date);
                 commit.url = data.commit.url;
-                let author = new GitHubUser();
-                author.name = data.commit.author.name;
-                author.email = data.commit.author.email;
-                author.accountUrl = data.committer.html_url;
-                author.avatarUrl = data.committer.avatar_url;
+                
+                let author = new GitHubUser(data.commit.author.name, data.committer.avatar_url, data.commit.author.email, data.committer.html_url);
                 commit.author = author;
                 return commit;
             });

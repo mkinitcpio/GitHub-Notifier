@@ -36,32 +36,16 @@ export class Repository {
         return this._name;
     }
 
-    public set name(name: string) {
-        this._name = name;
-    }
-
     public get fullname(): string {
         return this._fullname;
-    }
-
-    public set fullname(fullname: string) {
-        this._fullname = fullname;
     }
 
     public get description(): string {
         return this._description;
     }
 
-    public set description(descr: string) {
-        this._description = descr;
-    }
-
     public get owner(): GitHubUser {
         return this._owner;
-    }
-
-    public set owner(owner: GitHubUser) {
-        this._owner = owner;
     }
 
     public get lastCommitSha(): string {
