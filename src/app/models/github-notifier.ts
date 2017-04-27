@@ -7,6 +7,7 @@ import { GitHubApi } from '../github-api';
 import { AppStorage } from '../app-storage';
 
 import { Observable, BehaviorSubject } from 'rxjs';
+import { RepositoryCommitChecker } from "./repository-commit-checker";
 
 @Injectable()
 export class GitGubNotifier {
@@ -46,6 +47,9 @@ export class GitGubNotifier {
         this._repositories.push(newRepository);
         this._appStorage.saveUserRepositories(this._username, this._repositories);
         this._repositoriesSubject.next(this._repositories);
+        let r = new RepositoryCommitChecker(newRepository, this._gitGubApi).isRepositoryHasNewCommit().subscribe((v)=>{
+            console.log(v);
+        });
     }
 
     public removeRepository(repoFullName: string): void {
@@ -59,7 +63,7 @@ export class GitGubNotifier {
     }
 
     public getRepositoryCommits(repositoryFullname: string): Promise<Commit[]> {
-        return this._gitGubApi.getRepositoryCommits(repositoryFullname);
+        return this._gitGubApi.getRepositoryCommits(repositoryFullname).toPromise();
     }
 
     public getRepositoriesSubject(): Observable<Repository[]> {

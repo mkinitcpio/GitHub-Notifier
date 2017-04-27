@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() { }
 
-
     public get isLogIn(): boolean {
         return this._gitHubNotifier.isUserLoggedIn;
     }

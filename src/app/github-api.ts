@@ -30,7 +30,7 @@ export class GitHubApi {
         }).toPromise();
     }
 
-    public getRepositoryCommits(repositoryFullname: string): Promise<any> {
+    public getRepositoryCommits(repositoryFullname: string): Observable<Commit[]> {
         return this._http.get(`${this.GITHUB_URL}/repos/${repositoryFullname}/commits?client_id=${this.ID}&client_secret=${this.SECRET}`).map(response => {
             let commitsData = response.json();
             return commitsData;
@@ -41,6 +41,6 @@ export class GitHubApi {
 
                 return commit;
             });
-        }).toPromise();
+        });
     }
 }

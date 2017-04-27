@@ -13,6 +13,7 @@ import { GitHubApi } from './github-api';
 import { GitGubNotifier } from './models/github-notifier';
 import { AppStorage } from './app-storage';
 import { SearchComponent } from "./search/search.component";
+import { NotifierService } from "./notifier.service";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { SearchComponent } from "./search/search.component";
     providers: [
         GitHubApi,
         GitGubNotifier,
-        AppStorage
+        AppStorage,
+        NotifierService
     ],
     bootstrap: [AppComponent]
 })
