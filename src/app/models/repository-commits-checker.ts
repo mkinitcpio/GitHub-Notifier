@@ -1,30 +1,31 @@
 import { Repository } from './repository';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { GitHubApi } from "../github-api";
 import { Commit } from "./commit";
 
-export class RepositoryCommitChecker {
+export class RepositoryCommitsChecker {
 
     private _repository: Repository;
     private _lastWatchedCommitSha: string;
+    private _repositoriesSubscriptions: Subscription[] = [];
 
     constructor(repository: Repository, private _gitHubApi: GitHubApi) {
         this._repository = repository;
         this._lastWatchedCommitSha = repository.lastCommitSha;
     }
 
-    public isRepositoryHasNewCommit(): Observable<boolean> {
+    public isRepositoryHasNewCommit(): Observable<[string, boolean]> {
         return Observable.interval(20 * 1000).flatMap(() => {
             return this._gitHubApi.getRepositoryCommits(this._repository.fullname).map((c) => {
                 let lastCommit = c[0];
 
-                let isRepositoryHasNewCommit: boolean = lastCommit.key === this._lastWatchedCommitSha ? false : true;
+                let isRepositoryHasNewCommit: boolean = lastCommit.sha === this._lastWatchedCommitSha ? false : true;
 
                 if (isRepositoryHasNewCommit) {
-                    this._lastWatchedCommitSha = lastCommit.key;
+                    this._lastWatchedCommitSha = lastCommit.sha;
                 }
 
-                return isRepositoryHasNewCommit;
+                return [this._repository.name, isRepositoryHasNewCommit];
             });
         });
     }

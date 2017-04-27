@@ -26,7 +26,7 @@ export class Commit {
         this._isWatched = value;
     }
 
-    public get key(): string {
+    public get sha(): string {
         return this._sha;
     }
 
@@ -48,7 +48,7 @@ export class Commit {
 
     public static stringify(commit: Commit): any {
         return {
-            key: commit.key,
+            sha: commit.sha,
             message: commit.message,
             url: commit.url,
             author: GitHubUser.stringify(commit.author),

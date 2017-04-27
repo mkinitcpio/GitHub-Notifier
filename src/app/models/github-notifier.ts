@@ -6,8 +6,9 @@ import { Repository } from './repository';
 import { GitHubApi } from '../github-api';
 import { AppStorage } from '../app-storage';
 
-import { Observable, BehaviorSubject } from 'rxjs';
-import { RepositoryCommitChecker } from "./repository-commit-checker";
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { RepositoryCommitsChecker } from "./repository-commits-checker";
+import { NotifierService } from "../notifier.service";
 
 @Injectable()
 export class GitGubNotifier {
@@ -16,10 +17,12 @@ export class GitGubNotifier {
     private _repositories: Array<Repository> = [];
     private _repositoriesSubject: BehaviorSubject<Repository[]>;
     private _isUserLoggedIn: boolean = false;
+    private _repositoriesSubscriptions: Subscription[] = [];
 
     constructor(
         private _gitGubApi: GitHubApi,
-        private _appStorage: AppStorage
+        private _appStorage: AppStorage,
+        private _notifierService: NotifierService
     ) { }
 
     public logIn(userName: string): void {
@@ -35,21 +38,32 @@ export class GitGubNotifier {
         this._repositories = this._appStorage.getUserRepositories(userName);
         this._repositoriesSubject = new BehaviorSubject<Repository[]>(this._repositories);
         this._isUserLoggedIn = true;
+        this.subscribeOnRepositoryChanges();
+    }
+
+    private subscribeOnRepositoryChanges(): void {
+        for (let repository of this._repositories) {
+            let repositoryCommitsChecker = new RepositoryCommitsChecker(repository, this._gitGubApi);
+            let repSubscription = repositoryCommitsChecker.isRepositoryHasNewCommit().subscribe((a: [string, boolean]) => {
+                if (a[1]) {
+                    this._notifierService.notify(a[0]);
+                }
+            });
+            this._repositoriesSubscriptions.push(repSubscription);
+        }
     }
 
     public logOut(): void {
         this._username = null;
         this._repositories = null;
         this._isUserLoggedIn = false;
+
     }
 
     public addRepository(newRepository: Repository): void {
         this._repositories.push(newRepository);
         this._appStorage.saveUserRepositories(this._username, this._repositories);
         this._repositoriesSubject.next(this._repositories);
-        let r = new RepositoryCommitChecker(newRepository, this._gitGubApi).isRepositoryHasNewCommit().subscribe((v)=>{
-            console.log(v);
-        });
     }
 
     public removeRepository(repoFullName: string): void {
