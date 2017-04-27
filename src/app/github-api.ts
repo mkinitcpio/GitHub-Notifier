@@ -22,18 +22,15 @@ export class GitHubApi {
             return body.items;
         }).map((reposData) => {
             return reposData.map((data: any) => {
-                let searchedRepo: Repository = new Repository();
-                searchedRepo.name = data.name;
-                searchedRepo.fullname = data.full_name;
-                searchedRepo.description = data.description;
+
                 let owner = new GitHubUser();
                 owner.name = data.owner.login;
                 owner.email = "";
                 owner.accountUrl = data.owner.html_url;
                 owner.avatarUrl = data.owner.avatar_url;
-                searchedRepo.owner = owner;
-                searchedRepo.lastCommitKey = "";
-                searchedRepo.commits = [];
+
+                let searchedRepo: Repository = new Repository(data.full_name, data.description, owner);
+
                 return searchedRepo;
             });
         }).toPromise();

@@ -12,7 +12,6 @@ import { AppRoutes } from './app.route';
 import { GitHubApi } from './github-api';
 import { GitGubNotifier } from './models/github-notifier';
 import { AppStorage } from './app-storage';
-import { ApplicationUser } from './models/applicationUser';
 import { SearchComponent } from "./search/search.component";
 
 @NgModule({

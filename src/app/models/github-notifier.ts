@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Commit } from './commit';
 import { Repository } from './repository';
-import { ApplicationUser } from './applicationUser';
 
 import { GitHubApi } from '../github-api';
 import { AppStorage } from '../app-storage';
@@ -12,39 +11,47 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class GitGubNotifier {
 
-    private _applicationUser: ApplicationUser = null;
-    private _repositories: Array<Repository>;
-    private _applicationRepositorySubject: BehaviorSubject<Repository[]>;
+    private _username: string = null;
+    private _repositories: Array<Repository> = [];
+    private _repositoriesSubject: BehaviorSubject<Repository[]>;
     private _isUserLoggedIn: boolean = false;
-    
+
     constructor(
         private _gitGubApi: GitHubApi,
-        private _appStorage: AppStorage,
-        private _gitHubApi: GitHubApi
-    ) {
-     }
+        private _appStorage: AppStorage
+    ) { }
 
     public logIn(userName: string): void {
-        this._applicationUser = this._appStorage.getApplicationUser(userName);
-        this._applicationRepositorySubject = new BehaviorSubject<Repository[]>(this._applicationUser.repositories);
+
+        if (userName === null && userName === undefined) {
+            throw new Error("name has null or undefined value.");
+        }
+        if (userName === "") {
+            throw new Error("name has empty string.");
+        }
+
+        this._username = userName;
+        this._repositories = this._appStorage.getUserRepositories(userName);
+        this._repositoriesSubject = new BehaviorSubject<Repository[]>(this._repositories);
         this._isUserLoggedIn = true;
     }
 
     public logOut(): void {
-        this._applicationUser = null;
+        this._username = null;
+        this._repositories = null;
         this._isUserLoggedIn = false;
     }
 
     public addRepository(newRepository: Repository): void {
-        this._applicationUser.addRepository(newRepository);
-        this._appStorage.saveApplicationUserChanges(this._applicationUser);
-        // this._applicationUserRepositorySubject.next(this._applicationUser);
+        this._repositories.push(newRepository);
+        this._appStorage.saveUserRepositories(this._username, this._repositories);
+        this._repositoriesSubject.next(this._repositories);
     }
 
     public removeRepository(repoFullName: string): void {
-        this._applicationUser.removeRepository(repoFullName);
-        this._appStorage.saveApplicationUserChanges(this._applicationUser);
-        this._applicationRepositorySubject.next(this._applicationUser.repositories);
+        this._repositories = this._repositories.filter((repository: Repository) => repository.fullname !== repoFullName);
+        this._appStorage.saveUserRepositories(this._username, this._repositories)
+        this._repositoriesSubject.next(this._repositories);
     }
 
     public searchRepositories(regex: string): Promise<Repository[]> {
@@ -55,15 +62,15 @@ export class GitGubNotifier {
         return this._gitGubApi.getRepositoryCommits(repositoryFullname);
     }
 
-    public getApplicationUserSubject(): Observable<Repository[]> {
-        return this._applicationRepositorySubject;
+    public getRepositoriesSubject(): Observable<Repository[]> {
+        return this._repositoriesSubject;
     }
 
     public get isUserLoggedIn(): boolean {
         return this._isUserLoggedIn;
     }
 
-    public isRepoExistInSubscribedRepos(repositoryFullname:string): boolean{
-        return !!this._applicationUser.repositories.find(repo => repo.fullname === repositoryFullname);
+    public isRepoExistInSubscribedRepos(repositoryFullname: string): boolean {
+        return !!this._repositories.find((repository: Repository) => repository.fullname === repositoryFullname);
     }
 }
