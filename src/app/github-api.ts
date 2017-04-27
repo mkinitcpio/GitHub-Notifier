@@ -37,14 +37,9 @@ export class GitHubApi {
             return commitsData;
         }).map((commitsData: any) => {
             return commitsData.map((data: any) => {
-                let commit = new Commit();
-                commit.key = data.sha;
-                commit.message = data.commit.message;
-                commit.date = new Date(data.commit.author.date);
-                commit.url = data.commit.url;
-                
                 let author = new GitHubUser(data.commit.author.name, data.committer.avatar_url, data.commit.author.email, data.committer.html_url);
-                commit.author = author;
+                let commit = new Commit(data.sha, data.commit.message, data.commit.url, author, new Date(data.commit.author.date));
+
                 return commit;
             });
         }).toPromise();
