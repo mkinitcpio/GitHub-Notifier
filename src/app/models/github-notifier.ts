@@ -12,9 +12,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 export class GitGubNotifier {
 
-    private _applicationUser: ApplicationUser;
+    private _applicationUser: ApplicationUser = null;
     private _repositories: Array<Repository>;
-    private _applicationUserRepositorySubject: BehaviorSubject<ApplicationUser>;
+    private _applicationRepositorySubject: BehaviorSubject<Repository[]>;
     private _isUserLoggedIn: boolean = false;
     
     constructor(
@@ -26,12 +26,12 @@ export class GitGubNotifier {
 
     public logIn(userName: string): void {
         this._applicationUser = this._appStorage.getApplicationUser(userName);
-        this._applicationUserRepositorySubject = new BehaviorSubject<ApplicationUser>(this._applicationUser);
+        this._applicationRepositorySubject = new BehaviorSubject<Repository[]>(this._applicationUser.repositories);
         this._isUserLoggedIn = true;
     }
 
     public logOut(): void {
-        delete this._applicationUser;
+        this._applicationUser = null;
         this._isUserLoggedIn = false;
     }
 
@@ -44,7 +44,7 @@ export class GitGubNotifier {
     public removeRepository(repoFullName: string): void {
         this._applicationUser.removeRepository(repoFullName);
         this._appStorage.saveApplicationUserChanges(this._applicationUser);
-        this._applicationUserRepositorySubject.next(this._applicationUser);
+        this._applicationRepositorySubject.next(this._applicationUser.repositories);
     }
 
     public searchRepositories(regex: string): Promise<Repository[]> {
@@ -55,8 +55,8 @@ export class GitGubNotifier {
         return this._gitGubApi.getRepositoryCommits(repositoryFullname);
     }
 
-    public getApplicationUserSubject(): Observable<ApplicationUser> {
-        return this._applicationUserRepositorySubject;
+    public getApplicationUserSubject(): Observable<Repository[]> {
+        return this._applicationRepositorySubject;
     }
 
     public get isUserLoggedIn(): boolean {

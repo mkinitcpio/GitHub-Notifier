@@ -22,8 +22,8 @@ export class MainComponent {
 
     constructor(private _gitHubNotifier: GitGubNotifier, private _router: Router) {
         if (!this.appUserSubject) {
-            this.appUserSubject = this._gitHubNotifier.getApplicationUserSubject().subscribe((currentUser: ApplicationUser) => {
-                this.repositories = currentUser.repositories;
+            this.appUserSubject = this._gitHubNotifier.getApplicationUserSubject().subscribe((repositories: Repository[]) => {
+                this.repositories = repositories;
             });
         }
     }
