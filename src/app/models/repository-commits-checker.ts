@@ -14,7 +14,7 @@ export class RepositoryCommitsChecker {
         this._lastWatchedCommitSha = repository.lastCommitSha;
     }
 
-    public isRepositoryHasNewCommit(): Observable<[string, boolean]> {
+    public isRepositoryHasNewCommit(): Observable<boolean> {
         return Observable.interval(20 * 1000).flatMap(() => {
             return this._gitHubApi.getRepositoryCommits(this._repository.fullname).map((c) => {
                 let lastCommit = c[0];
@@ -25,8 +25,12 @@ export class RepositoryCommitsChecker {
                     this._lastWatchedCommitSha = lastCommit.sha;
                 }
 
-                return [this._repository.name, isRepositoryHasNewCommit];
+                return isRepositoryHasNewCommit;
             });
         });
+    }
+
+    public get repositoryName(): string {
+        return this._repository.name;
     }
 } 

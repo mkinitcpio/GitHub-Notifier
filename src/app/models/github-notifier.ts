@@ -44,12 +44,20 @@ export class GitGubNotifier {
     private subscribeOnRepositoryChanges(): void {
         for (let repository of this._repositories) {
             let repositoryCommitsChecker = new RepositoryCommitsChecker(repository, this._gitGubApi);
-            let repSubscription = repositoryCommitsChecker.isRepositoryHasNewCommit().subscribe((a: [string, boolean]) => {
-                if (a[1]) {
-                    this._notifierService.notify(a[0]);
+            let repSubscription = repositoryCommitsChecker.isRepositoryHasNewCommit().subscribe((isRepositoryHasNewCommit: boolean) => {
+
+                if (isRepositoryHasNewCommit) {
+                    this._notifierService.notify(repositoryCommitsChecker.repositoryName);
                 }
             });
+
             this._repositoriesSubscriptions.push(repSubscription);
+        }
+    }
+
+    private unsubscribeOnRepositoryChanges(): void {
+        for (let repSubscription of this._repositoriesSubscriptions) {
+            repSubscription.unsubscribe();
         }
     }
 
@@ -57,7 +65,7 @@ export class GitGubNotifier {
         this._username = null;
         this._repositories = null;
         this._isUserLoggedIn = false;
-
+        this.unsubscribeOnRepositoryChanges();
     }
 
     public addRepository(newRepository: Repository): void {
