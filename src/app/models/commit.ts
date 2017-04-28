@@ -5,7 +5,6 @@ export class Commit {
     private _sha: string;
     private _message: string;
     private _url: string;
-    private _isWatched: boolean = false;
 
     private _author: GitHubUser;
     private _date: Date;
@@ -16,14 +15,6 @@ export class Commit {
         this._date = date;
         this._url = url;
         this._author = author;
-    }
-
-    public get isWatched(): boolean {
-        return this._isWatched;
-    }
-
-    public set isWatched(value: boolean) {
-        this._isWatched = value;
     }
 
     public get sha(): string {
@@ -52,8 +43,7 @@ export class Commit {
             message: commit.message,
             url: commit.url,
             author: GitHubUser.stringify(commit.author),
-            date: commit.date.toISOString(),
-            isWatched: commit.isWatched
+            date: commit.date.toISOString()
         }
     }
 
