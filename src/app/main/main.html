@@ -2,7 +2,7 @@
     <div class="main_body">
         <div class="body_repositories-container">
             <div class="repositories-container">
-                <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="showRepositoryCommits(repository)">
+                <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="showRepositoryCommits(repository)" [ngClass]="{'repositories-container_repository--new-commit': !isRepositoryHasLastCommit(repository)}">
                     <div class="repository_name">
                         {{repository.name}}
                     </div>
@@ -10,7 +10,7 @@
                         {{repository.description}}
                     </div>
                     <div class="repository_owner">
-                        Owner: mkinitcpio
+                        sha: {{repository.lastCommitSha}}
                     </div>
                 </div>
             </div>

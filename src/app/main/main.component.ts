@@ -22,6 +22,7 @@ export class MainComponent {
         if (!this.appUserSubject) {
             this.appUserSubject = this._gitHubNotifier.getRepositoriesSubject().subscribe((repositories: Repository[]) => {
                 this.repositories = repositories;
+                console.log(this.repositories);
             });
         }
     }
@@ -30,5 +31,9 @@ export class MainComponent {
         this._gitHubNotifier.getRepositoryCommits(repository.fullname).then(commits => {
             this.selectedRepositoryCommits = commits;
         });
+    }
+
+    public isRepositoryHasLastCommit(repo: Repository): boolean {
+        return this._gitHubNotifier.isRepoHasLastCommit(repo);
     }
 }

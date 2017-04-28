@@ -43,16 +43,4 @@ export class AppComponent implements OnInit {
         this._isSearchComponentEnable = false;
         this._router.navigate(['main']);
     }
-
-    addRepo(): void {
-        this._gitHubNotifier.addRepository(Repository.parse({
-            name: 'ChroperaDial',
-            fullname: "mkinitcpio/ChroperaDial",
-            commits: [],
-            description: "Test",
-            owner: null,
-            isExistUnwatchedCommit: false,
-            lastCommitKey: "1"
-        }));
-    }
 }

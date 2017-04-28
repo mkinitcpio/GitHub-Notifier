@@ -6,7 +6,7 @@ import { Repository } from './repository';
 import { GitHubApi } from '../github-api';
 import { AppStorage } from '../app-storage';
 
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription, Subject } from 'rxjs';
 import { RepositoryCommitsChecker } from "./repository-commits-checker";
 import { NotifierService } from "../notifier.service";
 
@@ -17,6 +17,7 @@ export class GitGubNotifier {
     private _repositories: Array<Repository> = [];
     private _repositoriesSubject: BehaviorSubject<Repository[]>;
     private _isUserLoggedIn: boolean = false;
+    private _repositoryCommitsCheckerSubscription: Subscription;
 
     constructor(
         private _gitGubApi: GitHubApi,
@@ -43,7 +44,7 @@ export class GitGubNotifier {
             this._repositoryCommitsChecker.addRepository(repository);
         }
 
-        this._repositoryCommitsChecker.getRepositorySubject().subscribe(repository => {
+        this._repositoryCommitsCheckerSubscription = this._repositoryCommitsChecker.getRepositorySubject().subscribe(repository => {
             this._notifierService.notify(repository.name);
         });
     }
@@ -53,6 +54,7 @@ export class GitGubNotifier {
         this._repositories = null;
         this._isUserLoggedIn = false;
         this._repositoryCommitsChecker.unsubscribeRepositories();
+        this._repositoryCommitsCheckerSubscription.unsubscribe();
     }
 
     public addRepository(newRepository: Repository): void {
@@ -87,5 +89,9 @@ export class GitGubNotifier {
 
     public isRepoExistInSubscribedRepos(repositoryFullname: string): boolean {
         return !!this._repositories.find((repository: Repository) => repository.fullname === repositoryFullname);
+    }
+
+    public isRepoHasLastCommit(repo: Repository): boolean {
+        return this._repositoryCommitsChecker.isRepoHasLastCommit(repo);
     }
 }

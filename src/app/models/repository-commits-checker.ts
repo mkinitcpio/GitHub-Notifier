@@ -15,7 +15,9 @@ export class RepositoryCommitsChecker {
         this._repositorySubject = new Subject<Repository>();
     }
 
-    addRepository(repository: Repository): void {
+    public addRepository(repository: Repository): void {
+        repository = Repository.parse(Repository.stringify(repository));
+
         let repositorySubscription = Observable.interval(20 * 1000).flatMap(() => {
             return this._gitHubApi.getRepositoryCommits(repository.fullname).map((c) => {
                 let lastCommit = c[0];
@@ -38,6 +40,7 @@ export class RepositoryCommitsChecker {
                 this._repositorySubject.next(repository);
             }
         });
+        
         this._repositories.push(repository);
         this._repositoriesSubscriptionsByRepositoryName.set(repository.fullname, repositorySubscription);
     }
@@ -57,5 +60,9 @@ export class RepositoryCommitsChecker {
             repoSubscription.unsubscribe();
         });
         this._repositories = [];
+    }
+
+    public isRepoHasLastCommit(repository: Repository): boolean {
+        return this._repositories.find(repo => repo.fullname === repository.fullname).lastCommitSha === repository.lastCommitSha;
     }
 } 

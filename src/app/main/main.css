@@ -35,6 +35,10 @@
     background-color: #eeeef8;
 }
 
+.repositories-container_repository--new-commit{
+    background-color: red;
+}
+
 .repository_name{
     font-weight: bold;
     font-size: 18px;
