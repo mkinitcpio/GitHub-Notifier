@@ -17,12 +17,12 @@ export class GitGubNotifier {
     private _repositories: Array<Repository> = [];
     private _repositoriesSubject: BehaviorSubject<Repository[]>;
     private _isUserLoggedIn: boolean = false;
-    private _repositoriesSubscriptions: Subscription[] = [];
 
     constructor(
         private _gitGubApi: GitHubApi,
         private _appStorage: AppStorage,
-        private _notifierService: NotifierService
+        private _notifierService: NotifierService,
+        private _repositoryCommitsChecker: RepositoryCommitsChecker
     ) { }
 
     public logIn(userName: string): void {
@@ -38,44 +38,33 @@ export class GitGubNotifier {
         this._repositories = this._appStorage.getUserRepositories(userName);
         this._repositoriesSubject = new BehaviorSubject<Repository[]>(this._repositories);
         this._isUserLoggedIn = true;
-        this.subscribeOnRepositoryChanges();
-    }
 
-    private subscribeOnRepositoryChanges(): void {
         for (let repository of this._repositories) {
-            let repositoryCommitsChecker = new RepositoryCommitsChecker(repository, this._gitGubApi);
-            let repSubscription = repositoryCommitsChecker.isRepositoryHasNewCommit().subscribe((isRepositoryHasNewCommit: boolean) => {
-
-                if (isRepositoryHasNewCommit) {
-                    this._notifierService.notify(repositoryCommitsChecker.repositoryName);
-                }
-            });
-
-            this._repositoriesSubscriptions.push(repSubscription);
+            this._repositoryCommitsChecker.addRepository(repository);
         }
-    }
 
-    private unsubscribeOnRepositoryChanges(): void {
-        for (let repSubscription of this._repositoriesSubscriptions) {
-            repSubscription.unsubscribe();
-        }
+        this._repositoryCommitsChecker.getRepositorySubject().subscribe(repository => {
+            this._notifierService.notify(repository.name);
+        });
     }
 
     public logOut(): void {
         this._username = null;
         this._repositories = null;
         this._isUserLoggedIn = false;
-        this.unsubscribeOnRepositoryChanges();
+        this._repositoryCommitsChecker.unsubscribeRepositories();
     }
 
     public addRepository(newRepository: Repository): void {
         this._repositories.push(newRepository);
+        this._repositoryCommitsChecker.addRepository(newRepository);
         this._appStorage.saveUserRepositories(this._username, this._repositories);
         this._repositoriesSubject.next(this._repositories);
     }
 
     public removeRepository(repoFullName: string): void {
         this._repositories = this._repositories.filter((repository: Repository) => repository.fullname !== repoFullName);
+        this._repositoryCommitsChecker.unsubscribeRepository(repoFullName);
         this._appStorage.saveUserRepositories(this._username, this._repositories)
         this._repositoriesSubject.next(this._repositories);
     }
