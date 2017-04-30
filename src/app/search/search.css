@@ -117,7 +117,3 @@
     transition-duration: 0.3s;
     color: #004D40;
 }
-
-.searched-repositories-container_repository-container:nth-child(even) {
-    background: rgb(249, 249, 249);
-}

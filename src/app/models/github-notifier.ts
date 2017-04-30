@@ -83,6 +83,9 @@ export class GitGubNotifier {
     public removeRepository(repoFullName: string): void {
         this._repositoryCheckerSubscriptions.get(repoFullName).unsubscribe();
         this._repositoryCheckerSubscriptions.delete(repoFullName);
+        this._repositoryCheckers = this._repositoryCheckers.filter((repoChecker: RepositoryChecker) => {
+            return repoChecker.repository.fullname !== repoFullName;
+        });
         this._appStorage.saveUserRepositories(this._username, this.repositories);
         this._repositoriesSubject.next(this.repositories);
     }
