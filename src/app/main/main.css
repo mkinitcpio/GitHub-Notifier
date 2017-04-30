@@ -1,12 +1,9 @@
 
 .main {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
 }
-
-
 
 .main_body {
     flex-grow: 1;
@@ -16,12 +13,12 @@
 
 .body_repositories-container {
     background: #f5f5f5;
-    flex-grow: 1;
+    width: 20%
 }
 
 .body_commits-container {
     background: #f9f9f7;
-    flex-grow: 2;
+    width: 80%;
 }
 
 .repositories-container {

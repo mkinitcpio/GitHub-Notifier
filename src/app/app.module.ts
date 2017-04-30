@@ -15,13 +15,17 @@ import { AppStorage } from './app-storage';
 import { SearchComponent } from "./search/search.component";
 import { NotifierService } from "./notifier.service";
 import { Application } from "./models/applictation";
+import { RepositoriesExplorerComponent } from "./repositories-explorer/repositories-explorer.component";
+import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         MainComponent,
         LoginComponent,
-        SearchComponent
+        SearchComponent,
+        RepositoriesExplorerComponent,
+        CommitsExplorerComponent
     ],
     imports: [
         BrowserModule,

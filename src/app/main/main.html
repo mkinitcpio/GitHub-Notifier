@@ -1,24 +1,10 @@
 <div class="main">
     <div class="main_body">
         <div class="body_repositories-container">
-            <div class="repositories-container">
-                <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="showRepositoryCommits(repository)" [ngClass]="{'repositories-container_repository--new-commit': !isRepositoryHasLastCommit(repository)}">
-                    <div class="repository_name">
-                        {{repository.name}}
-                    </div>
-                    <div class="repository_description">
-                        {{repository.description}}
-                    </div>
-                    <div class="repository_owner">
-                        sha:
-                    </div>
-                </div>
-            </div>
+            <repositories-explorer></repositories-explorer>
         </div>
-        <div *ngIf="selectedRepositoryCommits" class="body_commits-container">
-            <div *ngFor="let commit of selectedRepositoryCommits">
-                {{commit.message}}
-            </div>
+        <div class="body_commits-container">
+            <commits-explorer></commits-explorer>
         </div>
     </div>
 </div>

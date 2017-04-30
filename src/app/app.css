@@ -13,10 +13,15 @@
     -webkit-font-smoothing: antialiased;
 }
 
+.app{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .app_title-container {
+    flex: 0 0 auto;
     width: 100%;
-    position: fixed;
-    top: 0;
     background-color: #009688;
     display: flex;
     justify-content: space-between;
@@ -25,8 +30,8 @@
 }
 
 .app_body{
-    height: 100%;
-    margin-top: 55px;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .title-container_title {

@@ -129,8 +129,8 @@ table {
     border-spacing: 0;
 }
 
-body {
-    min-height: 100vh;
+html,body {
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
