@@ -2,14 +2,13 @@ import { Observable, Subject, Subscription } from "rxjs";
 
 import { Repository } from "./repository";
 import { GitHubApi } from '../github-api';
+import { Http } from '@angular/http';
 
 export class RepositoryChecker {
 
     private _hasLastCommit: boolean;
-    private _lastCommitSha: string;
     private _repository: Repository;
     private _repositoryCheckerSubscription: Subscription;
-
     constructor(repository: Repository, private _gitHubApi: GitHubApi) {
         this._hasLastCommit = true;
         this._repository = repository;
@@ -23,6 +22,7 @@ export class RepositoryChecker {
         return Observable.interval(20 * 1000).flatMap(() => {
             return this._gitHubApi.getRepositoryCommits(this._repository.fullname).map((c) => {
                 let lastCommit = c[0];
+                console.log(`${this._repository.fullname}\n${lastCommit.sha}`);
                 let isRepositoryHasNewCommit: boolean = lastCommit.sha === this._repository.lastCommitSha ? false : true;
 
                 if (isRepositoryHasNewCommit) {

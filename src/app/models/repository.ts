@@ -9,7 +9,7 @@ export class Repository {
     private _owner: GitHubUser;
     private _lastCommitSha: string;
 
-    constructor(fullname: string, description: string, owner: GitHubUser) {
+    constructor(fullname: string, description: string, owner: GitHubUser, lastCommitSha: string) {
 
         if (fullname === null && fullname === undefined) {
             throw new Error("fullname has null or undefined value.");
@@ -30,6 +30,8 @@ export class Repository {
             throw new Error("owner has null or undefined value.");
         }
         this._owner = owner;
+
+        this._lastCommitSha = lastCommitSha;
     }
 
     public get name(): string {
@@ -57,7 +59,7 @@ export class Repository {
     }
 
     public static parse(json: any): Repository {
-        let repo = new Repository(json.fullname, json.description, GitHubUser.parse(json.owner));
+        let repo = new Repository(json.fullname, json.description, GitHubUser.parse(json.owner), json.lastCommitSha);
 
         return repo;
     }

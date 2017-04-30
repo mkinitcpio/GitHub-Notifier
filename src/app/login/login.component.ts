@@ -7,6 +7,7 @@ import { Repository } from '../models/repository';
 import { Router } from '@angular/router';
 
 import * as electron from 'electron';
+import { Application } from "../models/applictation";
 @Component({
     selector: 'login',
     templateUrl: 'login.html',
@@ -17,10 +18,10 @@ import * as electron from 'electron';
 
 export class LoginComponent {
 
-    constructor(private _router: Router, private _gitHubNotifier: GitGubNotifier) { }
+    constructor(private _router: Router, private _application: Application) { }
 
     public logIn(name: string) {
-        this._gitHubNotifier.logIn(name);
+        this._application.logIn(name);
         this._router.navigate(['main']);
     }
 }

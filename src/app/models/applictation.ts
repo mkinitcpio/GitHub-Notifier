@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class Application {
 
-    private _username: string;
+    private _username: string = null;
 
     constructor(private _githubNotifier: GitGubNotifier) { }
 
@@ -19,6 +19,11 @@ export class Application {
 
         this._username = username;
         this._githubNotifier.logIn(username);
+    }
+
+    public logout(): void {
+        this._username = null;
+        this._githubNotifier.logOut();
     }
 
     public get gitHubNotifier(): GitGubNotifier {

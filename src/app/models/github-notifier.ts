@@ -57,6 +57,7 @@ export class GitGubNotifier {
             }
         });
     }
+
     public logOut(): void {
         this._repositoryCheckerSubscriptions.forEach(repoCheckerSubscription => {
             repoCheckerSubscription.unsubscribe();
@@ -69,15 +70,29 @@ export class GitGubNotifier {
 
     public addRepository(repository: Repository): void {
         let repoChecker: RepositoryChecker = new RepositoryChecker(repository, this._gitGubApi);
-
-        this._repositoryCheckers.push(repoChecker);
-        this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
-        this._repositoriesSubject.next(this.repositories);
+        this._gitGubApi.getRepositoryCommits(repository.fullname).toPromise().then(commits => {
+            let lastCommit = commits[0];
+            repository.lastCommitSha = lastCommit.sha;
+            this._repositoryCheckers.push(repoChecker);
+            this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
+            this._appStorage.saveUserRepositories(this._username, this.repositories);
+            this._repositoriesSubject.next(this.repositories);
+        });
     }
 
     public removeRepository(repoFullName: string): void {
         this._repositoryCheckerSubscriptions.get(repoFullName).unsubscribe();
         this._repositoryCheckerSubscriptions.delete(repoFullName);
+        this._appStorage.saveUserRepositories(this._username, this.repositories);
+        this._repositoriesSubject.next(this.repositories);
+    }
+
+    public setLastCommitShaRepository(repoFullname: string, sha: string) {
+        let index: number = this.repositories.findIndex(repo => repo.fullname === repoFullname);
+        if (index !== -1) {
+            this._repositoryCheckers[index].repository.lastCommitSha = sha;
+        }
+        this._appStorage.saveUserRepositories(this._username, this.repositories);
         this._repositoriesSubject.next(this.repositories);
     }
 

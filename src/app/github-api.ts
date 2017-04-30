@@ -23,7 +23,7 @@ export class GitHubApi {
         }).map((reposData) => {
             return reposData.map((data: any) => {
                 let owner = new GitHubUser(data.owner.login, data.owner.avatar_url, "", data.owner.html_url);
-                let searchedRepo: Repository = new Repository(data.full_name, data.description, owner);
+                let searchedRepo: Repository = new Repository(data.full_name, data.description, owner, data.lastCommitSha);
 
                 return searchedRepo;
             });
