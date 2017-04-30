@@ -15,7 +15,15 @@ import { Application } from "../models/applictation";
 })
 export class MainComponent {
 
-    constructor() {}
+    private _selectedRepositoryFullName: string = null;
+    
+    constructor() { }
 
+    public onRepositoryClick(selectedRepositoryFullname: string): void {
+        this._selectedRepositoryFullName = selectedRepositoryFullname;
+    }
 
+    public get selectedRepositoryFullname(): string{
+        return this._selectedRepositoryFullName;
+    }
 }

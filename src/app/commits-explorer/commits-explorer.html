@@ -1,3 +1,5 @@
 <div class="commits-explorer">
-
+    <div *ngFor="let commit of repositoryCommits" >
+        {{commit.message}}
+    </div>
 </div>

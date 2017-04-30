@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Repository } from "../models/repository";
 import { Application } from "../models/applictation";
 import { Commit } from "../models/commit";
@@ -10,9 +10,12 @@ import { Commit } from "../models/commit";
 
 export class RepositoriesExplorerComponent implements OnInit {
 
-    public selectedRepositoryCommits: Commit[];
+    public selectedRepositoryFullName: string;
     public appUserSubject: any;
     public repositories: Repository[];
+
+    @Output()
+    onRepositoryClick = new EventEmitter<string>();
 
     constructor(private _application: Application) {
         if (!this.appUserSubject) {
@@ -28,11 +31,8 @@ export class RepositoriesExplorerComponent implements OnInit {
         return this._application.gitHubNotifier.isRepositoryHasLastCommit(repo.fullname);
     }
 
-
-    public showRepositoryCommits(repository: Repository): void {
-        this._application.gitHubNotifier.getRepositoryCommits(repository.fullname).then(commits => {
-            this.selectedRepositoryCommits = commits;
-            this._application.gitHubNotifier.setLastCommitShaRepository(repository.fullname, commits[0].sha);
-        });
+    public selectRepository(repositoryFullName: string): void {
+        this.selectedRepositoryFullName = repositoryFullName;
+        this.onRepositoryClick.emit(repositoryFullName);
     }
 }

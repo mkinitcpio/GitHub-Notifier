@@ -1,6 +1,6 @@
 <div class="repositories-explorer">
     <div class="repositories-explorer_repositories-container">
-        <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="showRepositoryCommits(repository)"
+        <div class="repositories-container_repository" *ngFor="let repository of repositories" (click)="selectRepository(repository.fullname)"
             [ngClass]="{'repositories-container_repository--new-commit': !isRepositoryHasLastCommit(repository)}">
             <div class="repository_name">
                 {{repository.name}}
