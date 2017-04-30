@@ -7,6 +7,7 @@ export class Repository {
     private _fullname: string;
     private _description: string;
     private _owner: GitHubUser;
+    private _lastCommitSha: string;
 
     constructor(fullname: string, description: string, owner: GitHubUser) {
 
@@ -47,6 +48,14 @@ export class Repository {
         return this._owner;
     }
 
+    public get lastCommitSha(): string {
+        return this._lastCommitSha;
+    }
+
+    public set lastCommitSha(sha: string) {
+        this._lastCommitSha = sha;
+    }
+
     public static parse(json: any): Repository {
         let repo = new Repository(json.fullname, json.description, GitHubUser.parse(json.owner));
 
@@ -58,7 +67,8 @@ export class Repository {
             name: repo.name,
             fullname: repo.fullname,
             description: repo.description,
-            owner: GitHubUser.stringify(repo.owner)
+            owner: GitHubUser.stringify(repo.owner),
+            lastCommitSha: repo.lastCommitSha
         }
     }
 }

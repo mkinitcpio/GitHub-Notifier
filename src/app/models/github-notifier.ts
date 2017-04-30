@@ -7,23 +7,24 @@ import { GitHubApi } from '../github-api';
 import { AppStorage } from '../app-storage';
 
 import { Observable, BehaviorSubject, Subscription, Subject } from 'rxjs';
-import { RepositoryCommitsChecker } from "./repository-commits-checker";
 import { NotifierService } from "../notifier.service";
+import { RepositoryChecker } from "./repository-checker";
 
 @Injectable()
 export class GitGubNotifier {
 
     private _username: string = null;
-    private _repositories: Array<Repository> = [];
     private _repositoriesSubject: BehaviorSubject<Repository[]>;
+
     private _isUserLoggedIn: boolean = false;
-    private _repositoryCommitsCheckerSubscription: Subscription;
+
+    private _repositoryCheckers: RepositoryChecker[] = [];
+    private _repositoryCheckerSubscriptions: Map<string, Subscription> = new Map<string, Subscription>();
 
     constructor(
         private _gitGubApi: GitHubApi,
         private _appStorage: AppStorage,
-        private _notifierService: NotifierService,
-        private _repositoryCommitsChecker: RepositoryCommitsChecker
+        private _notifierService: NotifierService
     ) { }
 
     public logIn(userName: string): void {
@@ -36,39 +37,48 @@ export class GitGubNotifier {
         }
 
         this._username = userName;
-        this._repositories = this._appStorage.getUserRepositories(userName);
-        this._repositoriesSubject = new BehaviorSubject<Repository[]>(this._repositories);
+        let repositories = this._appStorage.getUserRepositories(userName);
+
         this._isUserLoggedIn = true;
 
-        for (let repository of this._repositories) {
-            this._repositoryCommitsChecker.addRepository(repository);
+        for (let repository of repositories) {
+            let repoChecker: RepositoryChecker = new RepositoryChecker(repository, this._gitGubApi);
+            this._repositoryCheckers.push(repoChecker);
+            this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
         }
 
-        this._repositoryCommitsCheckerSubscription = this._repositoryCommitsChecker.getRepositorySubject().subscribe(repository => {
-            this._notifierService.notify(repository.name);
+        this._repositoriesSubject = new BehaviorSubject<Repository[]>(this.repositories);
+    }
+
+    private getNewRepositoryCheckerSubscription(repoChecker: RepositoryChecker): Subscription {
+        return repoChecker.isRepositoryHasNewCommitObservable().subscribe((hasNewCommit: boolean) => {
+            if (hasNewCommit) {
+                this._notifierService.notify();
+            }
         });
     }
-
     public logOut(): void {
+        this._repositoryCheckerSubscriptions.forEach(repoCheckerSubscription => {
+            repoCheckerSubscription.unsubscribe();
+        })
+        this._repositoryCheckerSubscriptions.clear();
+        this._repositoryCheckers = [];
         this._username = null;
-        this._repositories = null;
         this._isUserLoggedIn = false;
-        this._repositoryCommitsChecker.unsubscribeRepositories();
-        this._repositoryCommitsCheckerSubscription.unsubscribe();
     }
 
-    public addRepository(newRepository: Repository): void {
-        this._repositories.push(newRepository);
-        this._repositoryCommitsChecker.addRepository(newRepository);
-        this._appStorage.saveUserRepositories(this._username, this._repositories);
-        this._repositoriesSubject.next(this._repositories);
+    public addRepository(repository: Repository): void {
+        let repoChecker: RepositoryChecker = new RepositoryChecker(repository, this._gitGubApi);
+
+        this._repositoryCheckers.push(repoChecker);
+        this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
+        this._repositoriesSubject.next(this.repositories);
     }
 
     public removeRepository(repoFullName: string): void {
-        this._repositories = this._repositories.filter((repository: Repository) => repository.fullname !== repoFullName);
-        this._repositoryCommitsChecker.unsubscribeRepository(repoFullName);
-        this._appStorage.saveUserRepositories(this._username, this._repositories)
-        this._repositoriesSubject.next(this._repositories);
+        this._repositoryCheckerSubscriptions.get(repoFullName).unsubscribe();
+        this._repositoryCheckerSubscriptions.delete(repoFullName);
+        this._repositoriesSubject.next(this.repositories);
     }
 
     public searchRepositories(regex: string): Promise<Repository[]> {
@@ -88,10 +98,18 @@ export class GitGubNotifier {
     }
 
     public isRepoExistInSubscribedRepos(repositoryFullname: string): boolean {
-        return !!this._repositories.find((repository: Repository) => repository.fullname === repositoryFullname);
+        return !!this.repositories.find((repository: Repository) => repository.fullname === repositoryFullname);
     }
 
-    public isRepoHasLastCommit(repo: Repository): boolean {
-        return this._repositoryCommitsChecker.isRepoHasLastCommit(repo);
+    private get repositories(): Repository[] {
+        return this._repositoryCheckers.map((repositoryChecker: RepositoryChecker) => {
+            return repositoryChecker.repository;
+        });
+    }
+
+    public isRepositoryHasLastCommit(repositoryFullname: string): boolean {
+        return this._repositoryCheckers.find((repositoryChecker: RepositoryChecker) => {
+            return repositoryChecker.repository.fullname === repositoryFullname;
+        }).hasLastCommit;
     }
 }

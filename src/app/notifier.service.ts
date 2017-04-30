@@ -6,10 +6,10 @@ export class NotifierService {
 
     constructor() { }
 
-    public notify(repositoryName: string): void {
+    public notify(): void {
         let title: string = "New commit!";
         let body: Object = {
-            body: `New commit in ${repositoryName}.`
+            body: `You have unread commit!`
         }
         
         let myNotification = new Notification(title, body);

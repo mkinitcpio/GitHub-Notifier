@@ -14,7 +14,6 @@ import { GitGubNotifier } from './models/github-notifier';
 import { AppStorage } from './app-storage';
 import { SearchComponent } from "./search/search.component";
 import { NotifierService } from "./notifier.service";
-import { RepositoryCommitsChecker } from "./models/repository-commits-checker";
 
 @NgModule({
     declarations: [
@@ -32,8 +31,7 @@ import { RepositoryCommitsChecker } from "./models/repository-commits-checker";
         GitHubApi,
         GitGubNotifier,
         AppStorage,
-        NotifierService,
-        RepositoryCommitsChecker
+        NotifierService
     ],
     bootstrap: [AppComponent]
 })

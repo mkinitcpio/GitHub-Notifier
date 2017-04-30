@@ -27,6 +27,8 @@ export class RepositoryChecker {
 
                 if (isRepositoryHasNewCommit) {
                     this._hasLastCommit = false;
+                } else {
+                    this._hasLastCommit = true;
                 }
                 return isRepositoryHasNewCommit;
             });
@@ -35,10 +37,5 @@ export class RepositoryChecker {
 
     public get hasLastCommit(): boolean {
         return this._hasLastCommit;
-    }
-
-    public setLastCommitSha(sha: string): void{
-        this._repository.lastCommitSha = sha;
-        this._hasLastCommit = true;
     }
 }

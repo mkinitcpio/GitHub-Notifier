@@ -34,6 +34,6 @@ export class MainComponent {
     }
 
     public isRepositoryHasLastCommit(repo: Repository): boolean {
-        return this._gitHubNotifier.isRepoHasLastCommit(repo);
+        return this._gitHubNotifier.isRepositoryHasLastCommit(repo.fullname);
     }
 }
