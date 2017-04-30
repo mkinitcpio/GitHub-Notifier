@@ -38,4 +38,9 @@ export class RepositoryChecker {
     public get hasLastCommit(): boolean {
         return this._hasLastCommit;
     }
+
+    public set lastCommitSha(commitSha: string){
+        this.repository.lastCommitSha = commitSha;
+        this._hasLastCommit = true;
+    }
 }

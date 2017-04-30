@@ -90,7 +90,7 @@ export class GitGubNotifier {
     public setLastCommitShaRepository(repoFullname: string, sha: string) {
         let index: number = this.repositories.findIndex(repo => repo.fullname === repoFullname);
         if (index !== -1) {
-            this._repositoryCheckers[index].repository.lastCommitSha = sha;
+            this._repositoryCheckers[index].lastCommitSha = sha;
         }
         this._appStorage.saveUserRepositories(this._username, this.repositories);
         this._repositoriesSubject.next(this.repositories);
