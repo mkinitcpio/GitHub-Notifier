@@ -5,7 +5,7 @@ import { Commit } from "../models/commit";
 @Component({
     selector: 'commits-explorer',
     templateUrl: 'commits-explorer.html',
-    styles:[
+    styles: [
         require('./commits-explorer.css').toString()
     ]
 })
@@ -14,13 +14,13 @@ export class CommitsExplorerComponent implements OnInit, OnChanges {
 
     private _selectedRepositoryFullname: string;
     private _repositoryCommits: Commit[] = [];
-    
+
     @Input()
     set selectedRepositoryFullname(fullname: string) {
         this._selectedRepositoryFullname = fullname;
     }
 
-    public get repositoryCommits(): Commit[]{
+    public get repositoryCommits(): Commit[] {
         return this._repositoryCommits;
     }
 
@@ -32,6 +32,7 @@ export class CommitsExplorerComponent implements OnInit, OnChanges {
         if (this._selectedRepositoryFullname) {
             this._application.gitHubNotifier.getRepositoryCommits(this._selectedRepositoryFullname).then(commits => {
                 this._repositoryCommits = commits;
+                this._application.gitHubNotifier.setLastCommitShaRepository(this._selectedRepositoryFullname, commits[0].sha);
             });
         }
     }

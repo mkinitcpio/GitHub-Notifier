@@ -1,3 +1,7 @@
-.repositories-container_repository{
+.repositories-container_repository {
     height: 300px;
+}
+
+.repositories-container_repository--new-commit {
+    background-color: red;
 }
