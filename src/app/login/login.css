@@ -1,0 +1,60 @@
+.login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container_image {
+    height: 196px;
+    width: 196px;
+    margin: 0 auto;
+}
+
+.login-container_image-container {
+    margin: 0 auto;
+}
+
+.login-container_greeting {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    color: #4c4c4c;
+    margin-bottom: 16px;
+}
+
+.input-container {
+    display: flex;
+}
+
+.input-container_input {
+    margin-left: auto;
+    padding: .375rem .75rem;
+    margin-right: 0px;
+    font-size: 1em;
+    line-height: 1.4em;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #CCCCCC;
+    box-sizing: border-box;
+}
+
+.input-container_input:focus {
+    border: 1px solid #009688;
+    outline: none;
+}
+
+.input-container_apply-button {
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin-right: auto;
+    padding: .375rem .75rem;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    background-color: #009688;
+    border-radius: 0 4px 4px 0;
+}
