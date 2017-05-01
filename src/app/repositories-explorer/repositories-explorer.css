@@ -1,7 +1,40 @@
-.repositories-container_repository {
-    height: 300px;
+.repositories-explorer-container {
+    padding: 8px 0px;
 }
 
-.repositories-container_repository--new-commit {
+.repository {
+    padding: 12px 8px;
+    background-color: white;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.repository--selected {
+    background-color: #CFD8DC;
+}
+
+.repository_notify-icon{
+    color: red;
+}
+
+.repository_name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 16px;
+}
+
+.repository_description {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.repository_owner {
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: right;
+}
+
+.repository--new-commit {
     background-color: red;
 }

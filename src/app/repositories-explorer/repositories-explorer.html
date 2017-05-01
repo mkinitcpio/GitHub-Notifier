@@ -1,14 +1,16 @@
 <div class="repositories-explorer-container">
-    <div class="repositories-explorer-container_repository" *ngFor="let repository of repositories" (click)="selectRepository(repository.fullname)"
-        [ngClass]="{'repositories-container_repository--new-commit': !isRepositoryHasLastCommit(repository)}">
-        <div class="repository_name">
-            {{repository.name}}
+    <div class="repositories-explorer-container_repository">
+        <div class="repository" *ngFor="let repository of repositories" (click)="selectRepository(repository.fullname)" [ngClass]="{'repository--selected': repository.fullname === selectedRepositoryFullName}">
+            <div class="repository_name">
+                {{repository.name}}
+            </div>
+            <div *ngIf="!isRepositoryHasLastCommit(repository)" class="repository_notify-icon material-icons">
+                lightbulb_outline
+            </div>
+            <div class="repository_owner">
+                <b>owner: </b>{{repository.owner.name}}
+            </div>
         </div>
-        <div class="repository_description">
-            {{repository.description}}
-        </div>
-        <div class="repository_owner">
-            sha:
-        </div>
+
     </div>
 </div>

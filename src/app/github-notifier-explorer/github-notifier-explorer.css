@@ -19,3 +19,8 @@ github-notifier-explorer {
     overflow-y: auto;
     background: whitesmoke;
 }
+
+.github-notifier-explorer-container_separator{
+    width: 1px;
+    background-color: #607d8b;
+}
