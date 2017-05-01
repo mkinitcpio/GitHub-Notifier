@@ -22,6 +22,6 @@ export class LoginComponent {
 
     public logIn(name: string) {
         this._application.logIn(name);
-        this._router.navigate(['main']);
+        this._router.navigate(['github-notifier-explorer']);
     }
 }

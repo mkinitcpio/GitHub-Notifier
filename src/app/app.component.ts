@@ -42,6 +42,6 @@ export class AppComponent implements OnInit {
 
     public navigateToMainComponent(): void {
         this._isSearchComponentEnable = false;
-        this._router.navigate(['main']);
+        this._router.navigate(['github-notifier-explorer']);
     }
 }

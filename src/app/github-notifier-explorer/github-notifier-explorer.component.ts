@@ -7,13 +7,13 @@ import { Commit } from "../models/commit";
 import { Application } from "../models/applictation";
 
 @Component({
-    selector: 'main',
-    templateUrl: './main.html',
+    selector: 'github-notifier-explorer',
+    templateUrl: './github-notifier-explorer.html',
     styles: [
-        require('./main.css').toString()
+        require('./github-notifier-explorer.css').toString()
     ]
 })
-export class MainComponent {
+export class GitHubNotifierExplorerComponent {
 
     private _selectedRepositoryFullName: string = null;
     

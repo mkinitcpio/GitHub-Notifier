@@ -1,0 +1,8 @@
+<div class="github-notifier-explorer-container">
+    <div class="github-notifier-explorer-container_repositories-container">
+        <repositories-explorer (onRepositoryClick)="onRepositoryClick($event)"></repositories-explorer>
+    </div>
+    <div class="github-notifier-explorer-container_commits-container">
+        <commits-explorer [selectedRepositoryFullname]="selectedRepositoryFullname"></commits-explorer>
+    </div>
+</div>

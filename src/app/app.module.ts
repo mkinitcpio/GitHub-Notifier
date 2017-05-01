@@ -5,7 +5,7 @@ import { Route, RouterModule } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
+import { GitHubNotifierExplorerComponent } from './github-notifier-explorer/github-notifier-explorer.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutes } from './app.route';
 
@@ -21,7 +21,7 @@ import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.co
 @NgModule({
     declarations: [
         AppComponent,
-        MainComponent,
+        GitHubNotifierExplorerComponent,
         LoginComponent,
         SearchComponent,
         RepositoriesExplorerComponent,
