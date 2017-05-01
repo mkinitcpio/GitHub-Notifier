@@ -4,7 +4,10 @@ import { Commit } from "../models/commit";
 
 @Component({
     selector: 'commits-explorer',
-    templateUrl: 'commits-explorer.html'
+    templateUrl: 'commits-explorer.html',
+    styles:[
+        require('./commits-explorer.css').toString()
+    ]
 })
 
 export class CommitsExplorerComponent implements OnInit, OnChanges {

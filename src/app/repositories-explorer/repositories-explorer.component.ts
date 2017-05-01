@@ -5,7 +5,10 @@ import { Commit } from "../models/commit";
 
 @Component({
     selector: 'repositories-explorer',
-    templateUrl: 'repositories-explorer.html'
+    templateUrl: 'repositories-explorer.html',
+    styles: [
+        require('./repositories-explorer.css').toString()
+    ]
 })
 
 export class RepositoriesExplorerComponent implements OnInit {

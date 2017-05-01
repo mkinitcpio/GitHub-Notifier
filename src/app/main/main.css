@@ -1,0 +1,24 @@
+main {
+    height: 100%;
+}
+
+.main {
+    height: 100%;
+}
+
+.main_body {
+    height: 100%;
+    display: flex;
+}
+.body_repositories-container{
+    flex-grow: 1;
+    overflow-y: auto;
+    background: white;
+}
+
+.body_commits-container{
+    flex-grow: 3;
+    width: 60%;
+    overflow-y: auto;
+    background: whitesmoke;
+}
