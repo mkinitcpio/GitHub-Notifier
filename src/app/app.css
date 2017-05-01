@@ -12,3 +12,52 @@
     direction: ltr;
     -webkit-font-smoothing: antialiased;
 }
+
+app {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+}
+
+.app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    flex-basis: 100%;
+    overflow-y: auto;
+    background-color: #f1f1f1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #607d8b;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 1;
+}
+
+.title-container_title {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 48px;
+    font-size: 32px;
+}
+
+.header_title-container {
+    padding: 4px 8px 8px 8px;
+}
+
+.header_menu-container {
+    padding: 4px 8px 8px 8px;
+}
+
+.menu_item {
+    color: white;
+    cursor: pointer;
+    line-height: 48px;
+    font-size: 30px;
+    text-align: center;
+}

@@ -1,17 +1,21 @@
 <div class="app">
-    <div class="app_title-container">
-        <div class="title-container_title">
-            GitHub-Notifier
+    <div class="header">
+        <div class="header_title-container">
+            <div class="title-container">
+                <div class="title-container_title">GitHub-Notifier</div>
+            </div>
         </div>
-        <div *ngIf="isLogIn && !isSearchComponentEnable" class="title-container_menu">
-            <div class="menu_item material-icons" (click)="searchRepo()">search</div>
-            <div class="menu_item material-icons" (click)="logout()">exit_to_app</div>
-        </div>
-        <div *ngIf="isSearchComponentEnable" class="title-container_menu">
-            <div class="menu_item material-icons" (click)="navigateToMainComponent()">arrow_back</div>
+        <div class="header_menu-container">
+            <div class="menu-container_menu">
+                <div class="menu">
+                    <div class="menu_item material-icons" (click)="searchRepo()">search</div>
+                    <div class="menu_item material-icons" (click)="logout()">exit_to_app</div>
+                    <div class="menu_item material-icons" (click)="navigateToMainComponent()">arrow_back</div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="app_body">
+    <div class="body">
         <router-outlet></router-outlet>
     </div>
 </div>
