@@ -46,6 +46,7 @@
 }
 
 .searched-repositories-container_repository-container {
+    background-color: #FFFFFF;
     cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 700px;

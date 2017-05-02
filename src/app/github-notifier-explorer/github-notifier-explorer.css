@@ -7,7 +7,7 @@ github-notifier-explorer {
     display: flex;
 }
 
-.github-notifier-explorer-container_repositories-container{
+.github-notifier-explorer-container_repositories-container {
     flex-grow: 1;
     overflow-y: auto;
     background: white;
@@ -17,10 +17,12 @@ github-notifier-explorer {
     flex-grow: 3;
     width: 60%;
     overflow-y: auto;
-    background: whitesmoke;
+    background-image: url(../../images/github-mark.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.github-notifier-explorer-container_separator{
+.github-notifier-explorer-container_separator {
     width: 1px;
     background-color: #607d8b;
 }

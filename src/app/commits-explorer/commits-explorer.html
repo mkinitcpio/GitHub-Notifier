@@ -1,5 +1,27 @@
-<div class="commits-explorer">
-    <div *ngFor="let commit of repositoryCommits" >
-        {{commit.message}}
+<div class="commits-explorer-container">
+    <div class="commits-explorer-container_commit">
+        <div class="commit" *ngFor="let commit of repositoryCommits" (click)="expandCommit(commit.sha)" [ngClass]="{'commit--selected': commit.sha === selectedCommitSha}">
+            <div *ngIf="commit.sha === selectedCommitSha; then fullInfo;else simpleInfo"></div>
+            <ng-template #fullInfo>
+                <div class="commit_message-full">
+                    <b>Message: </b>{{commit.message}}
+                </div>
+                <div class="commit_author-full">
+                    <b>Author: </b>{{commit.author.name}}
+                </div>
+                <div class="commit_date-full">
+                    <b>Date: </b>{{commit.date | date:'short'}}
+                </div>
+            </ng-template>
+            <ng-template #simpleInfo>
+                <div class="commit_message">
+                    {{commit.message}}
+                </div>
+                <div class="commit_date">
+                    {{commit.date | date:'short'}}
+                </div>
+            </ng-template>
+
+        </div>
     </div>
 </div>

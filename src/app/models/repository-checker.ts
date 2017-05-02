@@ -7,11 +7,13 @@ import { Http } from '@angular/http';
 export class RepositoryChecker {
 
     private _hasLastCommit: boolean;
+    private _isWatched: boolean;
     private _repository: Repository;
     private _repositoryCheckerSubscription: Subscription;
     
     constructor(repository: Repository, private _gitHubApi: GitHubApi) {
         this._hasLastCommit = true;
+        this._isWatched = true;
         this._repository = repository;
     }
 
@@ -26,9 +28,13 @@ export class RepositoryChecker {
                 let isRepositoryHasNewCommit: boolean = lastCommit.sha === this._repository.lastCommitSha ? false : true;
 
                 if (isRepositoryHasNewCommit) {
+                    if(!this._isWatched){
+                        isRepositoryHasNewCommit = false;
+                    }
                     this._hasLastCommit = false;
                 } else {
                     this._hasLastCommit = true;
+                    this._isWatched = false;                    
                 }
                 return isRepositoryHasNewCommit;
             });
@@ -42,5 +48,6 @@ export class RepositoryChecker {
     public set lastCommitSha(commitSha: string){
         this.repository.lastCommitSha = commitSha;
         this._hasLastCommit = true;
+        this._isWatched = true;
     }
 }

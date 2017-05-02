@@ -14,6 +14,7 @@ export class CommitsExplorerComponent implements OnInit, OnChanges {
 
     private _selectedRepositoryFullname: string;
     private _repositoryCommits: Commit[] = [];
+    public selectedCommitSha: string = "";
 
     @Input()
     set selectedRepositoryFullname(fullname: string) {
@@ -34,6 +35,14 @@ export class CommitsExplorerComponent implements OnInit, OnChanges {
                 this._repositoryCommits = commits;
                 this._application.gitHubNotifier.setLastCommitShaRepository(this._selectedRepositoryFullname, commits[0].sha);
             });
+        }
+    }
+
+    public expandCommit(commitSha: string): void {
+        if (this.selectedCommitSha === commitSha) {
+            this.selectedCommitSha = "";
+        } else {
+            this.selectedCommitSha = commitSha;
         }
     }
 }
