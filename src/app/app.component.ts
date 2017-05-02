@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
     private _isSearchComponentEnable: boolean = false;
 
-    constructor(private _router: Router,private _application: Application) { }
+    constructor(private _router: Router, private _application: Application) { }
 
     ngOnInit() { }
 
