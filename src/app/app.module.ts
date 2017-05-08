@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
 
 
@@ -30,7 +31,8 @@ import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.co
     imports: [
         BrowserModule,
         RouterModule.forRoot(AppRoutes),
-        HttpModule
+        HttpModule,
+        BrowserAnimationsModule
     ],
     providers: [
         GitHubApi,

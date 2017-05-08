@@ -5,38 +5,37 @@
     </div>
 
     <div class="searched-repositories-container">
-        <ng-container *ngFor="let repo of searchedRepos">
-            <div class="searched-repositories-container_repository-container" (click)="showRepositoryDetails(repo.fullname)">
-                <div class="repository-container_info-container">
-                    <div class="info-container_name">{{repo.name}}</div>
-                    <div *ngIf="!isSelectedRepository(repo.fullname)" class="info-container_owner">owner: {{repo.owner.name}}</div>
-                </div>
-                <div *ngIf="isSelectedRepository(repo.fullname);then fullInfo;else simpleInfo"></div>
-                <ng-template #fullInfo>
-                    <div class="repository-container_full-info-container">
-                        <div class="full-info-container_description">
-                            <b>Description:</b> {{repo.description}}
-                        </div>
-                        <div class="full-info-container_owner">
-                            <b>Owner:</b> {{repo.owner.name}}
-                        </div>
-                    </div>
-                    <div class="repository-container_button-container">
-                        <div *ngIf="!isRepoExistInSubscribedRepos(repo.fullname)" (click)="addRepository(repo)" class="button-container_button">
-                            Add
-                        </div>
-                        <div *ngIf="isRepoExistInSubscribedRepos(repo.fullname)" (click)="removeRepository(repo)" class="button-container_button button-container_button--red">
-                            Remove
-                        </div>
-                        <div class="button-container_button">
-                            Open
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #simpleInfo>
-
-                </ng-template>
+        <div *ngFor="let repo of staggeringRepos" class="searched-repositories-container_repository-container" (click)="showRepositoryDetails(repo.fullname)" (@slideInOut.done)="doNext()"
+        [@slideInOut]="'in'">
+            <div class="repository-container_info-container">
+                <div class="info-container_name">{{repo.name}}</div>
+                <div *ngIf="!isSelectedRepository(repo.fullname)" class="info-container_owner">owner: {{repo.owner.name}}</div>
             </div>
-        </ng-container>
+            <div *ngIf="isSelectedRepository(repo.fullname);then fullInfo;else simpleInfo"></div>
+            <ng-template #fullInfo>
+                <div class="repository-container_full-info-container">
+                    <div class="full-info-container_description">
+                        <b>Description:</b> {{repo.description}}
+                    </div>
+                    <div class="full-info-container_owner">
+                        <b>Owner:</b> {{repo.owner.name}}
+                    </div>
+                </div>
+                <div class="repository-container_button-container">
+                    <div *ngIf="!isRepoExistInSubscribedRepos(repo.fullname)" (click)="addRepository(repo)" class="button-container_button">
+                        Add
+                    </div>
+                    <div *ngIf="isRepoExistInSubscribedRepos(repo.fullname)" (click)="removeRepository(repo)" class="button-container_button button-container_button--red">
+                        Remove
+                    </div>
+                    <div class="button-container_button">
+                        Open
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #simpleInfo>
+
+            </ng-template>
+        </div>
     </div>
 </div>

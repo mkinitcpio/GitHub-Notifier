@@ -3,26 +3,52 @@ import { GitHubApi } from "../github-api";
 import { GitGubNotifier } from "../models/github-notifier";
 import { Repository } from "../models/repository";
 
+import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+
 @Component({
     selector: 'search',
     templateUrl: 'search.html',
     styles: [
         require('./search.css').toString()
+    ], animations: [
+        trigger('slideInOut', [
+            state('in', style({ transform: 'translateY(0)' })),
+            transition('void => *', [
+                animate(75, keyframes([
+                    style({ opacity: 0, transform: 'translateY(-100%)', offset: 0 }),
+                    style({ opacity: 1, transform: 'translateY(0)', offset: 1 })
+                ]))
+            ]),
+            transition('* => void', [
+                animate(350, keyframes([
+                    style({ opacity: 1, offset: 0 }),
+                    style({ opacity: 0, offset: 1 })
+                ]))
+            ])
+        ])
     ]
 })
 
 export class SearchComponent implements OnInit {
 
+    next: number = 0;
     private _searchedRepos: Repository[] = [];
+    public staggeringRepos: any[] = [];
     private _selectedRepositoryFullname: string;
-    
+
     constructor(private _gitHubNotifier: GitGubNotifier) { }
 
     ngOnInit() { }
 
     public search(repoName: string): void {
+        this.next = 0;
+
+        this.staggeringRepos = [];
+        this._searchedRepos = [];
+
         this._gitHubNotifier.searchRepositories(repoName).then(searchedRepos => {
             this._searchedRepos = searchedRepos;
+            this.doNext();
         });
     }
 
@@ -35,7 +61,7 @@ export class SearchComponent implements OnInit {
         return this._searchedRepos;
     }
 
-    public get selectedRepositoryFullname(): string{
+    public get selectedRepositoryFullname(): string {
         return this._selectedRepositoryFullname;
     }
 
@@ -43,15 +69,21 @@ export class SearchComponent implements OnInit {
         this._selectedRepositoryFullname = repositoryFullname;
     }
 
-    public isSelectedRepository(repositoryFullname: string): boolean{
+    public isSelectedRepository(repositoryFullname: string): boolean {
         return repositoryFullname === this.selectedRepositoryFullname;
     }
 
-    public isRepoExistInSubscribedRepos(repositoryFullname:string): boolean{
+    public isRepoExistInSubscribedRepos(repositoryFullname: string): boolean {
         return this._gitHubNotifier.isRepoExistInSubscribedRepos(repositoryFullname);
     }
 
-    public removeRepository(repository: Repository): void{
+    public removeRepository(repository: Repository): void {
         this._gitHubNotifier.removeRepository(repository.fullname);
+    }
+
+    doNext() {
+        if (this.next < this._searchedRepos.length) {
+            this.staggeringRepos.push(this._searchedRepos[this.next++]);
+        }
     }
 }

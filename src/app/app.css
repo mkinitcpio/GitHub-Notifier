@@ -12,7 +12,6 @@
     direction: ltr;
     -webkit-font-smoothing: antialiased;
 }
-
 app {
     display: flex;
     flex-direction: column;
