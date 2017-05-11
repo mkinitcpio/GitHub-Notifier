@@ -36,9 +36,9 @@ export class GitHubApi {
             return commitsData;
         }).map((commitsData: any) => {
             return commitsData.map((data: any) => {
-                let author = new GitHubUser(data.commit.author.name, data.committer.avatar_url, data.commit.author.email, data.committer.html_url);
+                let author = new GitHubUser(data.commit.author.name, data.commit.author.avatar_url, data.commit.author.email, data.commit.author.html_url);
                 let commit = new Commit(data.sha, data.commit.message, data.commit.url, author, new Date(data.commit.author.date));
-
+            
                 return commit;
             });
         });
