@@ -17,12 +17,12 @@ github-notifier-explorer {
 .github-notifier-explorer-container_content-container{
     display:  flex;
     height: 100%;
+    overflow: hidden;
 }
 
 .github-notifier-explorer-container_commits-container {
     flex-grow: 3;
     width: 60%;
-    overflow-y: auto;
     background-image: url(../../images/github-mark.png);
     background-repeat: no-repeat;
     background-position: center;

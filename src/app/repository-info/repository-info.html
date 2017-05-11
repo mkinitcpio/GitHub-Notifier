@@ -1,0 +1,24 @@
+<div *ngIf="selectedRepository" class="repository-info-container">
+    <div class="repository-info-container_repository-info-header-container">
+        <div class="repository-info-header-container_repository-navigation-button-container">
+            <div class="material-icons repository-navigation-button-container_back-button" (click)="backToRepositoriesExplorer()">arrow_back</div>
+        </div>
+        <div class="repository-info-header-container_repository-description-container">
+            <div class="repository-description-container_repository-name">
+                <b>Name: </b>{{selectedRepository.name}}
+            </div>
+            <div class="repository-description-container_repository-author">
+                <b>Owner: </b>{{selectedRepository.owner.name}}
+            </div>
+        </div>
+        <div class="repository-info-header-container_repository-menu-container">
+            <div class="repository-menu-container_repository-menu">
+                <div class="material-icons repository-menu_item">open_in_browser</div>
+                <div class="material-icons repository-menu_item" (click)="removeRepository()">delete_forever</div>
+            </div>
+        </div>
+    </div>
+    <div class="repository-info-container_commits-explorer-container">
+        <commits-explorer [selectedRepositoryFullname]="selectedRepository.fullname"></commits-explorer>
+    </div>
+</div>

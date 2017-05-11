@@ -1,4 +1,5 @@
 .commits-explorer-container {
+    height: 100%;
     background-color: #fafbff;
 }
 
@@ -51,4 +52,13 @@
     line-height: 24px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 18px;
+}
+
+.commits-explorer-container_commit{
+    height: 100%;
+    overflow-y: auto;
+}
+
+.commits-explorer-container_header-container{
+    
 }

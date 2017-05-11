@@ -1,0 +1,68 @@
+.repository-info-container_repository-info-header-container{
+     background-color: #009688; 
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 1;
+}
+
+.repository-description-container_repository-name{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    color: white;
+    margin: 16px 0px;
+}
+
+.repository-description-container_repository-author{
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: white;
+    margin: 16px 0px;
+}
+
+.repository-info-container_commits-explorer-container{
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.repository-info-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.repository-menu-container_repository-menu{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.repository-menu_item{
+    cursor: pointer;
+    font-size: 32px;
+    color: white;
+    margin: 2px;
+    padding: 4px;
+}
+
+.repository-menu_item:hover{
+    color: #f5f5f5;
+}
+
+.repository-info-header-container_repository-navigation-button-container{
+    display: flex;
+    align-items: center;
+}
+
+.repository-navigation-button-container_back-button{
+    font-size: 48px;
+    color: white;
+    margin: 2px;
+    padding: 4px;
+}
+
+.repository-info-header-container_repository-description-container{
+    text-align: center;
+}

@@ -13,12 +13,12 @@ import { Commit } from "../models/commit";
 
 export class RepositoriesExplorerComponent implements OnInit {
 
-    public selectedRepositoryFullName: string;
+    public selectedRepository: Repository;
     public appUserSubject: any;
     public repositories: Repository[];
 
     @Output()
-    onRepositoryClick = new EventEmitter<string>();
+    onRepositoryClick = new EventEmitter<Repository>();
 
     constructor(private _application: Application) {
         if (!this.appUserSubject) {
@@ -34,8 +34,8 @@ export class RepositoriesExplorerComponent implements OnInit {
         return this._application.gitHubNotifier.isRepositoryHasLastCommit(repo.fullname);
     }
 
-    public selectRepository(repositoryFullName: string): void {
-        this.selectedRepositoryFullName = repositoryFullName;
-        this.onRepositoryClick.emit(repositoryFullName);
+    public selectRepository(repository: Repository): void {
+        this.selectedRepository = repository;
+        this.onRepositoryClick.emit(repository);
     }
 }

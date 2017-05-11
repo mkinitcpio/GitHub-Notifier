@@ -58,7 +58,7 @@ export class RepositoryChecker {
             this._hasLastCommit = true;
             this._isAlreadyNotified = false;
         } else {
-            throw new Error("Commit have null or undefined value.");
+            throw new Error("commitSha has null or undefined value.");
         }
     }
 }

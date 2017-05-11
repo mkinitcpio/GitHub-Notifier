@@ -1,6 +1,6 @@
 <div class="repositories-explorer-container">
     <div class="repositories-explorer-container_repository">
-        <div class="repository" *ngFor="let repository of repositories" (click)="selectRepository(repository.fullname)" [ngClass]="{'repository--selected': repository.fullname === selectedRepositoryFullName}">
+        <div class="repository" *ngFor="let repository of repositories" (click)="selectRepository(repository)" [ngClass]="{'repository--selected': repository === selectedRepository}">
             <div class="repository_name">
                 {{repository.name}}
             </div>

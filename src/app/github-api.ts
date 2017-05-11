@@ -12,7 +12,6 @@ export class GitHubApi {
     private ID: string = "7e9e644207941631cfd1";
     private SECRET: string = "b7c47d6df88598e75d5fc101ff43038d3064855c";
     private GITHUB_URL = "https://api.github.com";
-    private _client: any;
 
     constructor(private _http: Http) { }
 

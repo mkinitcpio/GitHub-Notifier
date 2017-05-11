@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
 
-
 import { AppComponent } from './app.component';
 import { GitHubNotifierExplorerComponent } from './github-notifier-explorer/github-notifier-explorer.component';
 import { LoginComponent } from './login/login.component';
@@ -18,6 +17,7 @@ import { NotifierService } from "./notifier.service";
 import { Application } from "./models/applictation";
 import { RepositoriesExplorerComponent } from "./repositories-explorer/repositories-explorer.component";
 import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.component";
+import { RepositoryInfoComponent } from "./repository-info/repository-info.component";
 
 @NgModule({
     declarations: [
@@ -26,7 +26,8 @@ import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.co
         LoginComponent,
         SearchComponent,
         RepositoriesExplorerComponent,
-        CommitsExplorerComponent
+        CommitsExplorerComponent,
+        RepositoryInfoComponent
     ],
     imports: [
         BrowserModule,

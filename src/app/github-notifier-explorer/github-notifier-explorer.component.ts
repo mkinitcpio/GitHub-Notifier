@@ -15,16 +15,16 @@ import { Application } from "../models/applictation";
 })
 export class GitHubNotifierExplorerComponent {
 
-     private _selectedRepositoryFullName: string = null;
+     private _selectedRepository: Repository = null;
 
     constructor(private _router: Router, private _githubNotifier: GitHubNotifier) { }
 
-     public onRepositoryClick(selectedRepositoryFullname: string): void {
-        this._selectedRepositoryFullName = selectedRepositoryFullname;
+     public onRepositoryClick(selectedRepository: Repository): void {
+        this._selectedRepository = selectedRepository;
     }
 
-    public get selectedRepositoryFullname(): string{
-        return this._selectedRepositoryFullName;
+    public get selectedRepository(): Repository{
+        return this._selectedRepository;
     }
 
     public navigateToSearchedRepositoryComponent(): void {

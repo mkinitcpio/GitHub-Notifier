@@ -24,7 +24,8 @@
         </div>
         <div class="github-notifier-explorer-container_separator"></div>
         <div class="github-notifier-explorer-container_commits-container">
-                  <commits-explorer [selectedRepositoryFullname]="selectedRepositoryFullname"></commits-explorer>
+            <repository-info [selectedRepository]="selectedRepository"></repository-info>
+            <!--<commits-explorer [selectedRepositoryFullname]="selectedRepositoryFullname"></commits-explorer>-->
         </div>
     </div>
 </div>
