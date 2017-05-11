@@ -11,7 +11,7 @@ import { NotifierService } from "../notifier.service";
 import { RepositoryChecker } from "./repository-checker";
 
 @Injectable()
-export class GitGubNotifier {
+export class GitHubNotifier {
 
     private _username: string = null;
     private _repositoriesSubject: BehaviorSubject<Repository[]>;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Repository } from './models/repository';
-import { GitGubNotifier } from './models/github-notifier';
+import { GitHubNotifier } from './models/github-notifier';
 import { Application } from "./models/applictation";
 
 @Component({

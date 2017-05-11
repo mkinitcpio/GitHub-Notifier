@@ -5,12 +5,18 @@ github-notifier-explorer {
 .github-notifier-explorer-container {
     height: 100%;
     display: flex;
+    flex-direction: column;
 }
 
 .github-notifier-explorer-container_repositories-container {
     flex-grow: 1;
     overflow-y: auto;
     background: white;
+}
+
+.github-notifier-explorer-container_content-container{
+    display:  flex;
+    height: 100%;
 }
 
 .github-notifier-explorer-container_commits-container {
@@ -25,4 +31,39 @@ github-notifier-explorer {
 .github-notifier-explorer-container_separator {
     width: 1px;
     background-color: #607d8b;
+}
+
+.header-container_header {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #009688;
+    z-index: 1;
+}
+
+.title-container_title {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 48px;
+    font-size: 32px;
+}
+
+.header_title-container {
+    padding: 4px 8px 8px 8px;
+}
+
+.header_menu-container {
+    padding: 4px 8px 8px 8px;
+}
+
+.menu_item {
+    color: white;
+    cursor: pointer;
+    line-height: 48px;
+    font-size: 30px;
+    text-align: center;
 }

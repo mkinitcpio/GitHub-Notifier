@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { GitGubNotifier } from '../models/github-notifier';
+import { GitHubNotifier } from '../models/github-notifier';
 import { Repository } from '../models/repository';
 import { Router } from '@angular/router';
 import { Commit } from "../models/commit";
@@ -15,15 +15,24 @@ import { Application } from "../models/applictation";
 })
 export class GitHubNotifierExplorerComponent {
 
-    private _selectedRepositoryFullName: string = null;
-    
-    constructor() { }
+     private _selectedRepositoryFullName: string = null;
 
-    public onRepositoryClick(selectedRepositoryFullname: string): void {
+    constructor(private _router: Router, private _githubNotifier: GitHubNotifier) { }
+
+     public onRepositoryClick(selectedRepositoryFullname: string): void {
         this._selectedRepositoryFullName = selectedRepositoryFullname;
     }
 
     public get selectedRepositoryFullname(): string{
         return this._selectedRepositoryFullName;
+    }
+
+    public navigateToSearchedRepositoryComponent(): void {
+        this._router.navigate(['search']);
+    }
+
+    public logOut(){
+        this._githubNotifier.logOut();
+        this._router.navigate(['']);
     }
 }

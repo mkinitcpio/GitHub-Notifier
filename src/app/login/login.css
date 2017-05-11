@@ -11,11 +11,6 @@ login {
     align-items: center;
 }
 
-.title-container_title {
-    font-size: 48px;
-    margin: auto;
-}
-
 .login-container_image {
     height: 196px;
     width: 196px;

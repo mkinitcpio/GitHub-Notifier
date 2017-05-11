@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutes } from './app.route';
 
 import { GitHubApi } from './github-api';
-import { GitGubNotifier } from './models/github-notifier';
+import { GitHubNotifier } from './models/github-notifier';
 import { AppStorage } from './app-storage';
 import { SearchComponent } from "./search/search.component";
 import { NotifierService } from "./notifier.service";
@@ -36,7 +36,7 @@ import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.co
     ],
     providers: [
         GitHubApi,
-        GitGubNotifier,
+        GitHubNotifier,
         AppStorage,
         NotifierService,
         Application

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Repository } from './models/repository';
-import { GitGubNotifier } from './models/github-notifier';
+import { GitHubNotifier } from './models/github-notifier';
 
 @Injectable()
 export class AppStorage {

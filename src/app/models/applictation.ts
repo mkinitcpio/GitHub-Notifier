@@ -1,4 +1,4 @@
-import { GitGubNotifier } from "./github-notifier";
+import { GitHubNotifier } from "./github-notifier";
 import { Injectable } from "@angular/core";
 
 @Injectable()
@@ -6,7 +6,7 @@ export class Application {
 
     private _username: string = null;
 
-    constructor(private _githubNotifier: GitGubNotifier) { }
+    constructor(private _githubNotifier: GitHubNotifier) { }
 
     public logIn(username: string): void {
 
@@ -26,7 +26,7 @@ export class Application {
         this._githubNotifier.logOut();
     }
 
-    public get gitHubNotifier(): GitGubNotifier {
+    public get gitHubNotifier(): GitHubNotifier {
         return this._githubNotifier;
     }
 }

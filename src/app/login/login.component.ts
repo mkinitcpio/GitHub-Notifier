@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AppStorage } from '../app-storage';
-import { GitGubNotifier } from '../models/github-notifier';
+import { GitHubNotifier } from '../models/github-notifier';
 import { Repository } from '../models/repository';
 
 import { Router } from '@angular/router';

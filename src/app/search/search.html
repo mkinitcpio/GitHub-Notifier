@@ -1,5 +1,6 @@
 <div class="search-container">
     <div class="search-container_input-container">
+        <span class="search-container_back-button material-icons" (click)="navigateToMainExplorer()">arrow_back</span>
         <input #inputValue class="search-container_input" type="text" placeholder="Type repo name">
         <span class="search-container_search-button material-icons" (click)="search(inputValue.value)">search</span>
     </div>

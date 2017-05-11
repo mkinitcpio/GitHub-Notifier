@@ -1,9 +1,30 @@
 <div class="github-notifier-explorer-container">
-    <div class="github-notifier-explorer-container_repositories-container">
-        <repositories-explorer (onRepositoryClick)="onRepositoryClick($event)"></repositories-explorer>
+    <div class="github-notifier-explorer-container_header-container">
+        <div class="header-container_header">
+            <div class="header">
+                <div class="header_title-container">
+                    <div class="title-container">
+                        <div class="title-container_title">GitHub-Notifier</div>
+                    </div>
+                </div>
+                <div class="header_menu-container">
+                    <div class="menu-container_menu">
+                        <div class="menu">
+                            <div class="menu_item material-icons" (click)="navigateToSearchedRepositoryComponent()">search</div>
+                            <div class="menu_item material-icons" (click)="logOut()">exit_to_app</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="github-notifier-explorer-container_separator"></div>
-    <div class="github-notifier-explorer-container_commits-container">
-        <commits-explorer [selectedRepositoryFullname]="selectedRepositoryFullname"></commits-explorer>
+    <div class="github-notifier-explorer-container_content-container">
+        <div class="github-notifier-explorer-container_repositories-container">
+            <repositories-explorer (onRepositoryClick)="onRepositoryClick($event)"></repositories-explorer>
+        </div>
+        <div class="github-notifier-explorer-container_separator"></div>
+        <div class="github-notifier-explorer-container_commits-container">
+                  <commits-explorer [selectedRepositoryFullname]="selectedRepositoryFullname"></commits-explorer>
+        </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ import { Commit } from "../models/commit";
 export class CommitsExplorerComponent implements OnInit, OnChanges {
 
     private _selectedRepositoryFullname: string;
-    private _repositoryCommits: Commit[] = [];
+    private _repositoryCommits: Commit[] = null;
     public selectedCommitSha: string = "";
 
     @Input()

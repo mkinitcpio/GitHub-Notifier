@@ -14,7 +14,6 @@
     margin-right: 0px;
     font-size: 1.2em;
     line-height: 1.6em;
-    border-radius: 4px 0 0 4px;
     border: 1px solid #CCCCCC;
     box-sizing: border-box;
 }
@@ -35,6 +34,17 @@
     border-radius: 0 4px 4px 0;
 }
 
+.search-container_back-button{
+     color: white;
+    cursor: pointer;
+    margin-left: 0px;
+    padding: .375rem .75rem;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    background-color: #009688;
+    border-radius: 4px 0px 0px 4px;
+}
+
 .search-container_search-button:hover {
     background-color: #02796b;
 }
@@ -52,6 +62,10 @@
     max-width: 700px;
     padding: 18px 16px;
     border-bottom: 1px solid #e2e2e2;
+}
+
+.searched-repositories-container_repository-container:hover{
+    background-color: #f3f3f3;
 }
 
 .info-container_name {
