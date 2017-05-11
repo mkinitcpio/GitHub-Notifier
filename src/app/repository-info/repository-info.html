@@ -5,7 +5,7 @@
         </div>
         <div class="repository-info-header-container_repository-description-container">
             <div class="repository-description-container_repository-name">
-                <b>Name: </b>{{selectedRepository.name}}
+                {{selectedRepository.name}}
             </div>
             <div class="repository-description-container_repository-author">
                 <b>Owner: </b>{{selectedRepository.owner.name}}
@@ -13,7 +13,7 @@
         </div>
         <div class="repository-info-header-container_repository-menu-container">
             <div class="repository-menu-container_repository-menu">
-                <div class="material-icons repository-menu_item">open_in_browser</div>
+                <div alt="Open in browser" class="material-icons repository-menu_item">open_in_browser</div>
                 <div class="material-icons repository-menu_item" (click)="removeRepository()">delete_forever</div>
             </div>
         </div>

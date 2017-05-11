@@ -48,7 +48,7 @@
 }
 
 .repository-menu_item:hover{
-    color: #f5f5f5;
+    color: #f1f1f1;
 }
 
 .repository-info-header-container_repository-navigation-button-container{
@@ -57,7 +57,8 @@
 }
 
 .repository-navigation-button-container_back-button{
-    font-size: 48px;
+    cursor: pointer;
+    font-size: 32px;
     color: white;
     margin: 2px;
     padding: 4px;
