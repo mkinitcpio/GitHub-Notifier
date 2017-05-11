@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Repository } from "../models/repository";
 import { GitHubNotifier } from "../models/github-notifier";
+import { BrowserService } from "../browser.service";
 
 @Component({
     selector: 'repository-info',
@@ -23,7 +24,7 @@ export class RepositoryInfoComponent implements OnInit {
         return this._selectedRepository;
     }
 
-    constructor(private _gitHubNotifier: GitHubNotifier) { }
+    constructor(private _gitHubNotifier: GitHubNotifier, private _browserService: BrowserService) { }
 
     ngOnInit() { }
 
@@ -34,5 +35,9 @@ export class RepositoryInfoComponent implements OnInit {
     public removeRepository(): void{
         this._gitHubNotifier.removeRepository(this._selectedRepository.fullname);
         this._selectedRepository = null;
+    }
+
+    public openInBrowser(){
+        this._browserService.openInBrowser(this._selectedRepository.repositoryUrl);
     }
 }

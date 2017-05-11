@@ -29,7 +29,7 @@
                     <div *ngIf="isRepoExistInSubscribedRepos(repo.fullname)" (click)="removeRepository(repo)" class="button-container_button button-container_button--red">
                         Remove
                     </div>
-                    <div class="button-container_button">
+                    <div class="button-container_button" (click)="openInBrowser(repo.repositoryUrl)">
                         Open
                     </div>
                 </div>

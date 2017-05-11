@@ -18,6 +18,7 @@ import { Application } from "./models/applictation";
 import { RepositoriesExplorerComponent } from "./repositories-explorer/repositories-explorer.component";
 import { CommitsExplorerComponent } from "./commits-explorer/commits-explorer.component";
 import { RepositoryInfoComponent } from "./repository-info/repository-info.component";
+import { BrowserService } from "./browser.service";
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { RepositoryInfoComponent } from "./repository-info/repository-info.compo
         GitHubNotifier,
         AppStorage,
         NotifierService,
-        Application
+        Application,
+        BrowserService
     ],
     bootstrap: [AppComponent]
 })

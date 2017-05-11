@@ -5,6 +5,7 @@ import { Repository } from "../models/repository";
 
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { Router } from "@angular/router";
+import { BrowserService } from "../browser.service";
 
 @Component({
     selector: 'search',
@@ -37,7 +38,7 @@ export class SearchComponent implements OnInit {
     public staggeringRepos: any[] = [];
     private _selectedRepositoryFullname: string;
 
-    constructor(private _gitHubNotifier: GitHubNotifier, private _router: Router) { }
+    constructor(private _gitHubNotifier: GitHubNotifier, private _router: Router, private _browserService: BrowserService) { }
 
     ngOnInit() {
     }
@@ -91,5 +92,9 @@ export class SearchComponent implements OnInit {
 
     public navigateToMainExplorer(): void {
         this._router.navigate(['github-notifier-explorer']);
+    }
+
+    public openInBrowser(url: string): void{
+        this._browserService.openInBrowser(url);
     }
 }

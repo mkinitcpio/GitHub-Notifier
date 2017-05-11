@@ -8,8 +8,9 @@ export class Repository {
     private _description: string;
     private _owner: GitHubUser;
     private _lastCommitSha: string;
+    private _repositoryUrl: string;
 
-    constructor(fullname: string, description: string, owner: GitHubUser, lastCommitSha: string) {
+    constructor(fullname: string, description: string, owner: GitHubUser, lastCommitSha: string, repositoryUrl:string) {
 
         if (fullname === null && fullname === undefined) {
             throw new Error("fullname has null or undefined value.");
@@ -32,6 +33,11 @@ export class Repository {
         this._owner = owner;
 
         this._lastCommitSha = lastCommitSha;
+
+        if (repositoryUrl === null && repositoryUrl === undefined) {
+            throw new Error("repositoryUrl has null or undefined value.");
+        }
+        this._repositoryUrl = repositoryUrl;
     }
 
     public get name(): string {
@@ -58,8 +64,12 @@ export class Repository {
         this._lastCommitSha = sha;
     }
 
+    public get repositoryUrl(): string{
+        return this._repositoryUrl;
+    }
+
     public static parse(json: any): Repository {
-        let repo = new Repository(json.fullname, json.description, GitHubUser.parse(json.owner), json.lastCommitSha);
+        let repo = new Repository(json.fullname, json.description, GitHubUser.parse(json.owner), json.lastCommitSha, json.repositoryUrl);
 
         return repo;
     }
@@ -70,7 +80,8 @@ export class Repository {
             fullname: repo.fullname,
             description: repo.description,
             owner: GitHubUser.stringify(repo.owner),
-            lastCommitSha: repo.lastCommitSha
+            lastCommitSha: repo.lastCommitSha,
+            repositoryUrl: repo.repositoryUrl
         }
     }
 }

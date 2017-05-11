@@ -43,9 +43,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor']
-        })
-    ]
+    "target":"electron-main"
 }
