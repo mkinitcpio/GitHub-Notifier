@@ -73,10 +73,24 @@ export class GitHubNotifier {
         this._gitGubApi.getRepositoryCommits(repository.fullname).toPromise().then(commits => {
             let lastCommit = commits[0];
             repository.lastCommitSha = lastCommit.sha;
+
             this._repositoryCheckers.push(repoChecker);
             this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
             this._appStorage.saveUserRepositories(this._username, this.repositories);
             this._repositoriesSubject.next(this.repositories);
+
+        }).catch((error: Response) => {
+            if (error.status === 409) {
+                console.log(error.statusText);
+                repository.lastCommitSha = null;
+                this._repositoryCheckers.push(repoChecker);
+                this._repositoryCheckerSubscriptions.set(repository.fullname, this.getNewRepositoryCheckerSubscription(repoChecker));
+                this._appStorage.saveUserRepositories(this._username, this.repositories);
+                this._repositoriesSubject.next(this.repositories);
+            }
+            else {
+                // throw new Error(error.statusText);
+            }
         });
     }
 

@@ -6,6 +6,8 @@ import { Http } from '@angular/http';
 
 export class RepositoryChecker {
 
+    private SECONDS = 45;
+
     private _hasLastCommit: boolean;
     private _isAlreadyNotified: boolean;
     private _repository: Repository;
@@ -22,7 +24,7 @@ export class RepositoryChecker {
     }
 
     public isRepositoryHasNewCommitObservable(): Observable<boolean> {
-        return Observable.interval(45 * 1000).startWith(1).flatMap(() => {
+        return Observable.interval(this.SECONDS * 1000).startWith(1).flatMap(() => {
             return this._gitHubApi.getRepositoryCommits(this._repository.fullname).map((c) => {
                 let lastCommit = c[0];
 
@@ -51,8 +53,12 @@ export class RepositoryChecker {
     }
 
     public set lastCommitSha(commitSha: string) {
-        this.repository.lastCommitSha = commitSha;
-        this._hasLastCommit = true;
-        this._isAlreadyNotified = false;
+        if (commitSha) {
+            this.repository.lastCommitSha = commitSha;
+            this._hasLastCommit = true;
+            this._isAlreadyNotified = false;
+        } else {
+            throw new Error("Commit have null or undefined value.");
+        }
     }
 }

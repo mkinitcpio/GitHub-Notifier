@@ -34,6 +34,12 @@ export class CommitsExplorerComponent implements OnInit, OnChanges {
             this._application.gitHubNotifier.getRepositoryCommits(this._selectedRepositoryFullname).then(commits => {
                 this._repositoryCommits = commits;
                 this._application.gitHubNotifier.setLastCommitShaRepository(this._selectedRepositoryFullname, commits[0].sha);
+            }).catch((err: Response) =>{
+                if(err.status === 409){
+                    this._repositoryCommits = [];
+                }else{
+                    throw new Error(err.statusText);
+                }
             });
         }
     }
