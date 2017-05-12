@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import * as electron from 'electron';
 import { Application } from "../models/applictation";
+
 @Component({
     selector: 'login',
     templateUrl: 'login.html',

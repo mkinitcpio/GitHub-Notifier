@@ -1,3 +1,8 @@
+const {
+  Menu,
+  Tray
+} = require('electron')
+
 const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
@@ -8,6 +13,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
+
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600
@@ -17,6 +23,11 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }))
+
+  tray = new Tray('github-notifier-icon.png');
+  tray.on('click', () => {
+    win.isVisible() ? mainWindow.hide() : mainWindow.show()
+  });
 
   mainWindow.setMenuBarVisibility(false);
   mainWindow.on('closed', function () {
