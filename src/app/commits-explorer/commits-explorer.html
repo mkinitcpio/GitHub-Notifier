@@ -20,6 +20,9 @@
                 </div>
             </ng-template>
             <ng-template #simpleInfo>
+                <div class="commit_image-author-avatar-container">
+                    <img class="image-author-avatar-container_image" [src]="commit.author.avatarUrl" alt="">
+                </div>
                 <div class="commit_message">
                     {{commit.message}}
                 </div>

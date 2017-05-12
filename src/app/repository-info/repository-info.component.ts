@@ -37,7 +37,7 @@ export class RepositoryInfoComponent implements OnInit {
         this._selectedRepository = null;
     }
 
-    public openInBrowser(){
-        this._browserService.openInBrowser(this._selectedRepository.repositoryUrl);
+    public openInBrowser(url: string){
+        this._browserService.openInBrowser(url);
     }
 }

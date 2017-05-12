@@ -20,6 +20,7 @@
 }
 
 .commit_message {
+    flex-grow: 1;
     line-height: 24px;
     width: 70%;
     text-overflow: ellipsis;
@@ -27,6 +28,7 @@
     white-space: nowrap;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 18px;
+    margin-right: 16px;
 }
 
 .commit_message-full {
@@ -61,4 +63,16 @@
 
 .commits-explorer-container_header-container{
     
+}
+
+.image-author-avatar-container_image{
+    box-shadow: 0px 0px 5px 0px #afafaf;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+}
+
+.commit_image-author-avatar-container{
+    padding: 4px;
+    margin-right: 16px;
 }
